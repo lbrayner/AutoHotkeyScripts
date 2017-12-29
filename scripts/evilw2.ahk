@@ -5,7 +5,7 @@
 
 CoordMode, Mouse, Screen
 
-global OneEightyAll := 250
+global OneEightyAll := 210
 
 OneEighty(x)
 {
@@ -53,6 +53,9 @@ return
 ~*Numpad8::w
 return
 
+~*Numpad0::Space
+return
+
 ~*Numpad1::c
 return
 
@@ -62,15 +65,18 @@ return
 ~*Numpad9::q
 return
 
-~*Numpad7::
-SetKeyDelay -1
-Send {Blind}{e DownTemp}{t DownTemp}
+~*Numpad7::e
 return
 
-~*Numpad7 up::
-SetKeyDelay -1
-Send {Blind}{e up}{t up}
-return
+;~*Numpad7::
+;SetKeyDelay -1
+;Send {Blind}{e DownTemp}{t DownTemp}
+;return
+;
+;~*Numpad7 up::
+;SetKeyDelay -1
+;Send {Blind}{e up}{t up}
+;return
 
 ~*PgDn::f
 return

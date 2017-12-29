@@ -5,9 +5,9 @@
 
 CoordMode, Mouse, Screen
 
-global OneEightyAll := 6560
-global OneEightyTracer := 7060
-global OneEightyWidow := 9000
+global OneEightyAll :=    7700
+global OneEightyTracer := 7700
+global OneEightyWidow :=  7700
 
 UnreadyWeapon()
 {

@@ -66,7 +66,7 @@ SetKeyDelay -1
 Send {Blind}{F5 up}
 return
 
-Numpad7::e
+PgDn::f
 return
 
 ~*PgUp::
@@ -79,10 +79,10 @@ sleep_var := 50
 Send {Blind}{2 DownTemp}
 Sleep sleep_var
 Send {Blind}{2 up}
-Sleep sleep_var
-Send {Blind}{2 DownTemp}
-Sleep sleep_var
-Send {Blind}{2 up}
+;Sleep sleep_var
+;Send {Blind}{2 DownTemp}
+;Sleep sleep_var
+;Send {Blind}{2 up}
 return
 
 *WheelDown::
@@ -91,10 +91,10 @@ sleep_var := 50
 Send {Blind}{3 DownTemp}
 Sleep sleep_var
 Send {Blind}{3 up}
-Sleep sleep_var
-Send {Blind}{3 DownTemp}
-Sleep sleep_var
-Send {Blind}{3 up}
+;Sleep sleep_var
+;Send {Blind}{3 DownTemp}
+;Sleep sleep_var
+;Send {Blind}{3 up}
 return
 
 ~*MButton::
@@ -117,14 +117,8 @@ SetKeyDelay -1
 Send {Blind}{Esc up}
 return
 
-~*Delete::
-SetKeyDelay -1
-Attack()
-return
-
-~*Delete up::
-CeaseAttacking()
-return
+;Delete::v
+;return
 
 ~*NumpadDot::
 SetKeyDelay -1
@@ -132,5 +126,27 @@ Attack()
 return
 
 ~*NumpadDot up::
+CeaseAttacking()
+return
+
+~*Delete::
+SetKeyDelay -1
+Attack()
+return
+
+;~*Delete up::
+;CeaseAttacking()
+;return
+
+~*XButton1::
+SetKeyDelay -1
+Attack()
+return
+
+~*XButton1 up::
+CeaseAttacking()
+return
+
+~*LButton up::
 CeaseAttacking()
 return

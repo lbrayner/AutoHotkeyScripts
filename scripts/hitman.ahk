@@ -10,7 +10,7 @@ global Up_var := 0
 
 MouseTurn(x)
 {
-	DllCall("mouse_event", uint, 0, int, x, int, 0, uint, 0, int, 0)
+	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 	;MouseMove x,0,15,R
 }
 
@@ -43,16 +43,22 @@ MouseTurn(MouseTurnAll)
 return
 
 ~*PgUp::
-Send {Blind}{r DownTemp}{p DownTemp}
+Send {Blind}{p DownTemp}
 return
 
 ~*PgUp up::
-Send {Blind}{r up}{p up}
+Send {Blind}{p up}
 return
 
 
 
-Home::Esc
+~*Home::
+UnInstinct()
+Send {Blind}{Esc DownTemp}
+return
+
+~*Home up::
+Send {Blind}{Esc up}
 return
 
 ~*Numpad7::
@@ -61,9 +67,9 @@ sleep_var_n7 := 100
 var_n7 := true
 while(var_n7)
 {
-    Send {Blind}{e DownTemp}
+    Send {Blind}{e DownTemp}{x DownTemp}
     Sleep sleep_var_n7
-    Send {Blind}{e up}
+    Send {Blind}{e up}{x up}
     Sleep sleep_var_n7
 }
 return
@@ -72,19 +78,58 @@ return
 var_n7 := false
 return
 
+;~*PgDn::
+;SetKeyDelay -1
+;sleep_var_pgdn := 100
+;var_pgdn := true
+;while(var_pgdn)
+;{
+;    Send {Blind}{f DownTemp}{x DownTemp}
+;    Sleep sleep_var_pgdn
+;    Send {Blind}{f up}{x up}
+;    Sleep sleep_var_pgdn
+;}
+;return
+;
+;~*PgDn up::
+;var_pgdn := false
+;return
+
 ~*PgDn::
-SetKeyDelay -1
-sleep_var_pgdn := 100
-var_pgdn := true
-while(var_pgdn)
-{
-    Send {Blind}{f DownTemp}{x DownTemp}
-    Sleep sleep_var_pgdn
-    Send {Blind}{f up}{x up}
-    Sleep sleep_var_pgdn
-}
+UnInstinct()
 return
 
-~*PgDn up::
-var_pgdn := false
+Instinct()
+{
+    global Instinct
+    if(!Instinct)
+    {
+        Send {LCtrl DownTemp}
+    }
+    Instinct := 1
+}
+
+UnInstinct()
+{
+    global Instinct
+    if(Instinct)
+    {
+        Send {LCtrl up}
+    }
+    Instinct := 0
+}
+
+Insert::F1
+return
+
+~*Delete::
+global Instinct
+if(Instinct)
+{
+	UnInstinct()
+}
+else
+{
+	Instinct()
+}
 return
