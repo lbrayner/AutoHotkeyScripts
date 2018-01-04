@@ -8,8 +8,23 @@ UnreadyWeapon()
 {
 	global ReadyWeapon
 		
-	ReadyWeapon := 0
-	Send {Click up right}
+    if(ReadyWeapon)
+    {
+        ReadyWeapon := 0
+        Send {Click up right}
+    }
+}
+
+OpenGadgetMenu()
+{
+    global GadgetMenu
+    GadgetMenu := 1
+}
+
+CloseGadgetMenu()
+{
+    global GadgetMenu
+    GadgetMenu := 0
 }
 
 OneEighty(x)
@@ -18,6 +33,8 @@ OneEighty(x)
 }
 
 global OneEightyAll :=    7700
+global ReadyWeapon := 0
+global GadgetMenu := 0
 
 ~*NumpadDiv::
 SetKeyDelay -1
@@ -72,6 +89,46 @@ return
 ~*Numpad7::e
 return
 
+~*Right::
+SetKeyDelay -1
+global GadgetMenu
+if(GadgetMenu)
+{
+	Send {Blind}{b DownTemp}
+}
+return
+
+~*Right up::
+SetKeyDelay -1
+Send {Blind}{b up}
+return
+
+~*Down::
+SetKeyDelay -1
+global GadgetMenu
+if(GadgetMenu)
+{
+	Send {Blind}{h DownTemp}
+}
+return
+
+~*Down up::
+SetKeyDelay -1
+Send {Blind}{h up}
+return
+
+~*WheelDown::
+SetKeyDelay -1
+global GadgetMenu
+sleep_var := 50
+if(GadgetMenu)
+{
+	Send {Blind}{h DownTemp}
+    Sleep sleep_var
+    Send {Blind}{h up}
+}
+return
+
 ~*PgDn::f
 return
 
@@ -79,15 +136,22 @@ return
 return
 
 ~*NumpadEnter::
+SetKeyDelay -1
+OpenGadgetMenu()
 UnreadyWeapon()
 Send {Blind}{LCtrl DownTemp}
 return
 
 ~*NumpadEnter up::
+SetKeyDelay -1
+CloseGadgetMenu()
 Send {Blind}{LCtrl up}
 return
 
 ~*Delete::v
+return
+
+~*End::t
 return
 
 ~*Insert::Tab
@@ -96,4 +160,10 @@ return
 ~*Numpad2::
 global OneEightyAll
 OneEighty(OneEightyAll)
+return
+
+LCtrl::w
+return
+
+~*LAlt::XButton1
 return
