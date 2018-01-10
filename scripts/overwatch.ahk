@@ -5,7 +5,7 @@
 
 CoordMode, Mouse, Screen
 
-global OneEightyAll :=    7700
+global OneEightyAll :=    9000
 global OneEightyTracer := 7700
 global OneEightyWidow :=  7700
 

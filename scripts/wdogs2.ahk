@@ -15,16 +15,28 @@ UnreadyWeapon()
     }
 }
 
-OpenGadgetMenu()
+EnableModifier1()
 {
-    global GadgetMenu
-    GadgetMenu := 1
+    global Modifier1
+    Modifier1 := 1
 }
 
-CloseGadgetMenu()
+DisableModifier1()
 {
-    global GadgetMenu
-    GadgetMenu := 0
+    global Modifier1
+    Modifier1 := 0
+}
+
+EnableModifier2()
+{
+    global Modifier2
+    Modifier2 := 1
+}
+
+DisableModifier2()
+{
+    global Modifier2
+    Modifier2 := 0
 }
 
 OneEighty(x)
@@ -34,7 +46,7 @@ OneEighty(x)
 
 global OneEightyAll :=    7700
 global ReadyWeapon := 0
-global GadgetMenu := 0
+global Modifier1 := 0
 
 ~*NumpadDiv::
 SetKeyDelay -1
@@ -83,49 +95,63 @@ return
 ~*Numpad3::z
 return
 
-~*Numpad9::q
-return
-
 ~*Numpad7::e
 return
 
 ~*Right::
 SetKeyDelay -1
-global GadgetMenu
-if(GadgetMenu)
+global Modifier1
+global Modifier2
+if(Modifier1)
 {
 	Send {Blind}{b DownTemp}
+}
+if(Modifier2)
+{
+	Send {Blind}{1 DownTemp}
 }
 return
 
 ~*Right up::
 SetKeyDelay -1
-Send {Blind}{b up}
+Send {Blind}{b up}{1 up}
 return
 
 ~*Down::
 SetKeyDelay -1
-global GadgetMenu
-if(GadgetMenu)
+global Modifier1
+global Modifier2
+if(Modifier1)
 {
 	Send {Blind}{h DownTemp}
+}
+if(Modifier2)
+{
+	Send {Blind}{2 DownTemp}
 }
 return
 
 ~*Down up::
 SetKeyDelay -1
-Send {Blind}{h up}
+Send {Blind}{h up}{2 up}
 return
 
 ~*WheelDown::
 SetKeyDelay -1
-global GadgetMenu
+global Modifier1
+global Modifier2
 sleep_var := 50
-if(GadgetMenu)
+if(Modifier1)
 {
 	Send {Blind}{h DownTemp}
     Sleep sleep_var
     Send {Blind}{h up}
+}
+if(Modifier2)
+{
+	Send {Blind}{2 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{2 up}
 }
 return
 
@@ -137,15 +163,25 @@ return
 
 ~*NumpadEnter::
 SetKeyDelay -1
-OpenGadgetMenu()
+EnableModifier1()
 UnreadyWeapon()
 Send {Blind}{LCtrl DownTemp}
 return
 
 ~*NumpadEnter up::
 SetKeyDelay -1
-CloseGadgetMenu()
+DisableModifier1()
 Send {Blind}{LCtrl up}
+return
+
+~*Numpad9::
+SetKeyDelay -1
+EnableModifier2()
+return
+
+~*Numpad9 up::
+SetKeyDelay -1
+DisableModifier2()
 return
 
 ~*Delete::v
