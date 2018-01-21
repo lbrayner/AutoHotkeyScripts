@@ -6,8 +6,8 @@
 
 UnreadyWeapon()
 {
-	global ReadyWeapon
-		
+    global ReadyWeapon
+        
     if(ReadyWeapon)
     {
         ReadyWeapon := 0
@@ -39,9 +39,22 @@ DisableModifier2()
     Modifier2 := 0
 }
 
+EnableModifier3()
+{
+    global Modifier3
+    Modifier3 := 1
+}
+
+DisableModifier3()
+{
+    global Modifier3
+    Modifier3 := 0
+}
+
+
 OneEighty(x)
 {
-	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
+    DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
 global OneEightyAll :=    7700
@@ -52,9 +65,9 @@ global Modifier1 := 0
 SetKeyDelay -1
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
-	ReadyWeapon := 1
-	Send {Click DownTemp right}
+{   
+    ReadyWeapon := 1
+    Send {Click DownTemp right}
 }
 return
 
@@ -92,7 +105,12 @@ return
 ~*Numpad1::c
 return
 
-~*Numpad3::z
+~*Numpad3::
+EnableModifier3()
+return
+
+~*Numpad3 up::
+DisableModifier3()
 return
 
 ~*Numpad7::e
@@ -104,11 +122,11 @@ global Modifier1
 global Modifier2
 if(Modifier1)
 {
-	Send {Blind}{b DownTemp}
+    Send {Blind}{b DownTemp}
 }
 if(Modifier2)
 {
-	Send {Blind}{1 DownTemp}
+    Send {Blind}{1 DownTemp}
 }
 return
 
@@ -123,17 +141,59 @@ global Modifier1
 global Modifier2
 if(Modifier1)
 {
-	Send {Blind}{h DownTemp}
+    Send {Blind}{h DownTemp}
 }
 if(Modifier2)
 {
-	Send {Blind}{2 DownTemp}
+    Send {Blind}{2 DownTemp}
 }
 return
 
 ~*Down up::
 SetKeyDelay -1
 Send {Blind}{h up}{2 up}
+return
+
+~*Up::
+SetKeyDelay -1
+global Modifier2
+if(Modifier2)
+{
+    Send {Blind}{3 DownTemp}
+}
+return
+
+~*Up up::
+SetKeyDelay -1
+Send {Blind}{3 up}
+return
+
+~*WheelUp::
+SetKeyDelay -1
+global Modifier1
+global Modifier2
+global Modifier3
+sleep_var := 50
+if(Modifier1)
+{
+    Send {Blind}{g DownTemp}
+    Sleep sleep_var
+    Send {Blind}{g up}
+    return
+}
+if(Modifier2)
+{
+    Send {Blind}{3 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{3 up}
+    return
+}
+if(Modifier3)
+{
+    Send {Blind}{4 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{4 up}
+}
 return
 
 ~*WheelDown::
@@ -143,13 +203,13 @@ global Modifier2
 sleep_var := 50
 if(Modifier1)
 {
-	Send {Blind}{h DownTemp}
+    Send {Blind}{h DownTemp}
     Sleep sleep_var
     Send {Blind}{h up}
 }
 if(Modifier2)
 {
-	Send {Blind}{2 DownTemp}
+    Send {Blind}{2 DownTemp}
     Sleep sleep_var
     Send {Blind}{2 up}
 }
@@ -202,4 +262,7 @@ LCtrl::w
 return
 
 ~*LAlt::XButton1
+return
+
+~*XButton2::NumpadSub
 return
