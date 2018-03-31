@@ -5,7 +5,7 @@
 
 CoordMode, Mouse, Screen
 
-global OneEightyAll := 210
+global OneEightyAll := 380
 
 OneEighty(x)
 {

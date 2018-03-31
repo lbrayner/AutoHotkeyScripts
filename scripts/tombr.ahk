@@ -4,14 +4,14 @@
 #IfWinActive, ahk_exe  ROTTR.exe
 
 global ReadyWeapon := 0
-global Walk := 0
+global Sprint := 0
 global Sprint := 0
 
-global OneEightyAll := 3900
+global OneEightyAll := 1200
 
 Turn(x)
 {
-	DllCall("mouse_event", uint, 0, int, x, int, 0, uint, 0, int, 0)
+	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
 UnreadyWeapon()
@@ -22,12 +22,18 @@ UnreadyWeapon()
 	Send {Click up right}
 }
 
-StopWalking()
-{
-	global Walk
 	
-	Walk := 0
-	Send {x up}
+
+EnableModifier1()
+{
+    global Modifier1
+    Modifier1 := 1
+}
+
+DisableModifier1()
+{
+    global Modifier1
+    Modifier1 := 0
 }
 
 ~*NumpadDiv::
@@ -40,19 +46,15 @@ if(!ReadyWeapon)
 }
 return
 
-~*RButton::
-StopWalking()
-return
 
 ~*RButton up::
 UnreadyWeapon()
 return
 
-~*Numpad1::
+*Numpad1::
 SetKeyDelay -1
 var := true
 sleep_var := 100
-StopWalking()
 UnreadyWeapon()
 while(var)
 {	
@@ -63,19 +65,10 @@ while(var)
 }
 return
 
-~*Numpad1 up::
+*Numpad1 up::
 var := false
 return
 
-~*NumpadMult::
-SetKeyDelay -1
-global Walk
-if(!Walk)
-{	
-	Walk := 1
-	Send {x DownTemp}
-}
-return
 
 ~*Numpad8::
 SetKeyDelay -1
@@ -93,41 +86,33 @@ return
 ~*Numpad0::
 SetKeyDelay -1
 UnreadyWeapon()
-StopWalking()
 return
 
-~*Delete::
-SetKeyDelay -1
-global ReadyWeapon
-sleep_var := 50
-var := true
-while(var)
-{
-	Send {Blind}{f DownTemp}
-	Sleep sleep_var
-	Send {Blind}{f up}
-	Sleep sleep_var
-}
-return
 
-~*Delete up::
-var := false
-return
 
 *~Insert::
-StopWalking()
 UnreadyWeapon()
 return
 
-*Home::Esc
+*~Home::
+UnreadyWeapon()
+Send {Esc DownTemp}
 return
 
+*~Home up::
+Send {Esc up}
+return
+
+
 *~SC07E::
-Send {e DownTemp}
+Send {f DownTemp}
 return
 
 *~SC07E up::
-Send {e up}
+Send {f up}
+return
+
+NumpadSub::c
 return
 
 *NumpadDot::
@@ -150,39 +135,59 @@ return
 
 ~*NumpadEnter::
 UnreadyWeapon()
-StopWalking()
+EnableModifier1()
 return
 
+~*NumpadEnter up::
+DisableModifier1()
+return
 
 *Numpad7::
 SetKeyDelay -1
 global ReadyWeapon
 sleep_var := 50
 var := true
-if(ReadyWeapon)
+while(var)
 {
-	while(var)
-	{
-		Send {Blind}{Click DownTemp}
-		Sleep sleep_var
-		Send {Blind}{Click up}
-		Sleep sleep_var
-	}
-}
-else
-{
-	while(var)
-	{
-		Send {Blind}{e DownTemp}
-		Sleep sleep_var
-		Send {Blind}{e up}
-		Sleep sleep_var
-	}
+    Send {Blind}{e DownTemp}
+    Sleep sleep_var
+    Send {Blind}{e up}
+    Sleep sleep_var
 }
 return
 
 *Numpad7 up::
 var := false
+return
+
+~*PgDn::
+SetKeyDelay -1
+global ReadyWeapon
+global Modifier1
+if(Modifier1)
+{
+    alt := true
+}
+if(ReadyWeapon || Modifier1)
+{
+    Send {Blind}{F5 DownTemp}
+    return
+}
+sleep_var := 50
+var := true
+while(var)
+{
+    Send {Blind}{f DownTemp}
+    Sleep sleep_var
+    Send {Blind}{f up}
+    Sleep sleep_var
+}
+return
+
+~*PgDn up::
+var := false
+alt := false
+Send {Blind}{F5 up}
 return
 
 Pause::Escape
