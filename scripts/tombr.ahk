@@ -6,6 +6,7 @@
 global ReadyWeapon := 0
 global Sprint := 0
 global Sprint := 0
+global Modifier1 := false
 
 global OneEightyAll := 1200
 
@@ -27,13 +28,17 @@ UnreadyWeapon()
 EnableModifier1()
 {
     global Modifier1
-    Modifier1 := 1
+
+    if(!Modifier1)
+    {
+        Modifier1 := true
+    }
 }
 
 DisableModifier1()
 {
     global Modifier1
-    Modifier1 := 0
+    Modifier1 := false
 }
 
 ~*NumpadDiv::
@@ -168,7 +173,7 @@ if(Modifier1)
 {
     alt := true
 }
-if(ReadyWeapon || Modifier1)
+if(ReadyWeapon || alt)
 {
     Send {Blind}{F5 DownTemp}
     return
@@ -187,6 +192,7 @@ return
 ~*PgDn up::
 var := false
 alt := false
+DisableModifier1()
 Send {Blind}{F5 up}
 return
 
@@ -196,4 +202,7 @@ Pause::Escape
 *~Numpad2::
 global OneEightyAll
 Turn(OneEightyAll)
+return
+
+*~XButton2::4
 return
