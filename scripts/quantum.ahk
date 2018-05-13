@@ -105,7 +105,7 @@ return
 ~*NumpadAdd::o
 return
 
-~*End::u
+~*End::t
 return
 
 ~*NumpadDot::
@@ -134,4 +134,3 @@ if(ReadyWeapon)
     Send {Blind}{z}
 }
 return
-

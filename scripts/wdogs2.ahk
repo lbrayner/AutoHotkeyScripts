@@ -123,6 +123,7 @@ global Modifier2
 if(Modifier1)
 {
     Send {Blind}{b DownTemp}
+    return
 }
 if(Modifier2)
 {
@@ -176,9 +177,9 @@ global Modifier3
 sleep_var := 50
 if(Modifier1)
 {
-    Send {Blind}{g DownTemp}
+    Send {Blind}{9 DownTemp}
     Sleep sleep_var
-    Send {Blind}{g up}
+    Send {Blind}{9 up}
     return
 }
 if(Modifier2)
@@ -188,12 +189,29 @@ if(Modifier2)
     Send {Blind}{3 up}
     return
 }
-if(Modifier3)
+; if(Modifier3)
+; {
+;     Send {Blind}{4 DownTemp}
+;     Sleep sleep_var
+;     Send {Blind}{4 up}
+; }
+return
+
+*LButton::
+global Modifier1
+sleep_var := 50
+if(Modifier1)
 {
-    Send {Blind}{4 DownTemp}
+    Send {Blind}{g DownTemp}
     Sleep sleep_var
-    Send {Blind}{4 up}
+    Send {Blind}{g up}
+    return
 }
+Send {Click DownTemp}
+return
+
+*LButton up::
+Send {Click up}
 return
 
 ~*WheelDown::
@@ -264,5 +282,27 @@ return
 ~*LAlt::XButton1
 return
 
-~*XButton2::NumpadSub
+~*XButton2::
+global Modifier1
+global Modifier2
+sleep_var := 50
+if(Modifier1)
+{
+    Send {Blind}{4 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{4 up}
+    return
+}
+if(Modifier2)
+{
+    Send {Blind}{5 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{5 up}
+    return
+}
+Send {NumpadSub DownTemp}
+return
+
+~*XButton2 up::
+Send {NumpadSub up}
 return
