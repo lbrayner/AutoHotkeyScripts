@@ -31,6 +31,9 @@ UnreadyWeapon()
     }
 }
 
+global WheelUp_mod := false
+global XButton2_mod := false
+
 ~*Home::Esc
 return
 
@@ -70,8 +73,23 @@ return
 ~*Right::1
 return
 
-~*PgDn::f
+~*PgDn::
+SetKeyDelay -1
+sleep_var := 50
+var := true
+while(var)
+{
+    Send {Blind}{f DownTemp}
+    Sleep sleep_var
+    Send {Blind}{f up}
+    Sleep sleep_var
+}
 return
+
+~*PgDn up::
+var := false
+return
+
 
 ~*PgUp::r
 return
@@ -79,6 +97,19 @@ return
 ~*WheelUp::
 SetKeyDelay -1
 sleep_var := 50
+global WheelUp_mod
+global Modifier1
+if(Modifier1)
+{
+    WheelUp_mod := !WheelUp_mod
+}
+if(WheelUp_mod)
+{
+    Send {Blind}{3 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{3 up}
+    return
+}
 Send {Blind}{4 DownTemp}
 Sleep sleep_var
 Send {Blind}{4 up}
@@ -86,18 +117,10 @@ return
 
 ~*WheelDown::
 SetKeyDelay -1
-global Modifier1
 sleep_var := 50
-if(Modifier1)
-{
-    Send {Blind}{9 DownTemp}
-    Sleep sleep_var
-    Send {Blind}{9 up}
-    return
-}
-Send {Blind}{2 DownTemp}
+Send {Blind}{6 DownTemp}
 Sleep sleep_var
-Send {Blind}{2 up}
+Send {Blind}{6 up}
 return
 
 ~*Numpad2::
@@ -126,4 +149,28 @@ return
 ~*RButton up::
 SetKeyDelay -1
 UnreadyWeapon()
+return
+
+~*End::F1
+return
+
+~*XButton2::
+SetKeyDelay -1
+sleep_var := 50
+global XButton2_mod
+global Modifier1
+if(Modifier1)
+{
+    XButton2_mod := !XButton2_mod
+}
+if(XButton2_mod)
+{
+    Send {Blind}{8 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{8 up}
+    return
+}
+Send {Blind}{5 DownTemp}
+Sleep sleep_var
+Send {Blind}{5 up}
 return
