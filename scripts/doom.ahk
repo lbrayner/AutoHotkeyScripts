@@ -20,6 +20,26 @@ DisableModifier1()
     Modifier1 := 0
 }
 
+EnableModifier2()
+{
+    global Modifier2
+    Modifier2 := 1
+}
+
+DisableModifier2()
+{
+    global Modifier2
+    Modifier2 := 0
+}
+
+ClearAll_XButton2_mods()
+{
+    global XButton2_mod1
+    global XButton2_mod2
+    XButton2_mod1 := false
+    XButton2_mod2 := false
+}
+
 UnreadyWeapon()
 {
     global ReadyWeapon
@@ -32,7 +52,7 @@ UnreadyWeapon()
 }
 
 global WheelUp_mod := false
-global XButton2_mod := false
+global XButton2_mod1 := false
 
 ~*Home::Esc
 return
@@ -136,6 +156,14 @@ return
 DisableModifier1()
 return
 
+~*Delete::
+EnableModifier2()
+return
+
+~*Delete up::
+DisableModifier2()
+return
+
 ~*NumpadDiv::
 SetKeyDelay -1
 global ReadyWeapon
@@ -157,17 +185,33 @@ return
 ~*XButton2::
 SetKeyDelay -1
 sleep_var := 50
-global XButton2_mod
+global XButton2_mod1
 global Modifier1
 if(Modifier1)
 {
-    XButton2_mod := !XButton2_mod
+    tmp_var := XButton2_mod1
+    ClearAll_XButton2_mods()
+    XButton2_mod1 := !tmp_var
 }
-if(XButton2_mod)
+global Modifier2
+global XButton2_mod2
+if(Modifier2)
+{
+    ClearAll_XButton2_mods()
+    XButton2_mod2 := !XButton2_mod2
+}
+if(XButton2_mod1)
 {
     Send {Blind}{8 DownTemp}
     Sleep sleep_var
     Send {Blind}{8 up}
+    return
+}
+if(XButton2_mod2)
+{
+    Send {Blind}{7 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{7 up}
     return
 }
 Send {Blind}{5 DownTemp}
