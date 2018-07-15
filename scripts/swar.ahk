@@ -87,12 +87,14 @@ return
 LeaveStealth()
 return
 
-~*RButton::
-LeaveStealth()
-return
-
 ~*RButton up::
+global Numpad0Down
 LeaveRanged()
+if(Numpad0Down)
+{
+    return
+}
+LeaveStealth()
 return
 
 ~*Numpad0::
@@ -172,10 +174,10 @@ return
 Send {Blind}{e up}
 return
 
-~*XButton2::
+~*NumpadSub::
 SetKeyDelay -1
 sub_var := true
-sub_sleep_var := 1
+sub_sleep_var := 25
 while(sub_var)
 {		
 	Send {Blind}{w DownTemp}{Click DownTemp}
@@ -185,7 +187,7 @@ while(sub_var)
 }
 return
 
-~*XButton2 up::
+~*NumpadSub up::
 SetKeyDelay -1
 sub_var := false
 return
