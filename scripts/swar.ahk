@@ -108,9 +108,9 @@ LeaveStealth()
 Send {Blind}{Space up}
 return
 
-; ~*Numpad1::
-; LeaveStealth()
-; return
+~*Numpad1 up::
+LeaveStealth()
+return
 
 ~*NumpadMult::x
 return
@@ -170,4 +170,22 @@ return
 
 ~*Numpad7 up::
 Send {Blind}{e up}
+return
+
+~*XButton2::
+SetKeyDelay -1
+sub_var := true
+sub_sleep_var := 1
+while(sub_var)
+{		
+	Send {Blind}{w DownTemp}{Click DownTemp}
+	Sleep sub_sleep_var
+	Send {Blind}{w up}{Click up}
+	Sleep sub_sleep_var
+}
+return
+
+~*XButton2 up::
+SetKeyDelay -1
+sub_var := false
 return
