@@ -70,6 +70,16 @@ OneEighty(3800)
 return
 
 ~*NumpadEnter::
+global Numpad0Down
+sleep_var := 100
+if(Numpad0Down)
+{
+    LeaveStealth()
+    Send {Blind}{F10 DownTemp}
+    Sleep sleep_var
+    Send {Blind}{F10 up}
+    Sleep sleep_var
+}
 EnterStealth()
 return
 
@@ -86,11 +96,15 @@ LeaveRanged()
 return
 
 ~*Numpad0::
-LeaveStealth()
+global Numpad0Down
+Numpad0Down := true
 Send {Blind}{Space DownTemp}
 return
 
 ~*Numpad0 up::
+global Numpad0Down
+Numpad0Down := false
+LeaveStealth()
 Send {Blind}{Space up}
 return
 
@@ -107,7 +121,7 @@ EnterRanged()
 return
 
 ~*XButton1::
-sleep_var := 50
+sleep_var := 150
 Send {Blind}{LShift DownTemp}
 Sleep sleep_var
 Send {Blind}{Click DownTemp}
@@ -116,6 +130,16 @@ Send {Blind}{Click up}{LShift up}
 return
 
 ~*PgDn::
+global Ranged
+if(Ranged)
+{
+    sleep_var := 100
+    Send {Blind}{z DownTemp}
+    Sleep sleep_var
+    Send {Blind}{z up}
+    LeaveRanged()
+    return
+}
 LeaveStealth()
 Send {Blind}{LCtrl DownTemp}
 return
@@ -127,4 +151,23 @@ return
 ~*m::
 LeaveStealth()
 LeaveRanged()
+return
+
+~*Numpad7::
+global Ranged
+if(Ranged)
+{
+    sleep_var := 100
+    Send {Blind}{x DownTemp}
+    Sleep sleep_var
+    Send {Blind}{x up}
+    Sleep sleep_var
+    LeaveRanged()
+    return
+}
+Send {Blind}{e DownTemp}
+return
+
+~*Numpad7 up::
+Send {Blind}{e up}
 return
