@@ -112,6 +112,7 @@ return
 
 ~*Numpad1 up::
 LeaveStealth()
+LeaveRanged()
 return
 
 ~*NumpadMult::x
@@ -129,6 +130,9 @@ Sleep sleep_var
 Send {Blind}{Click DownTemp}
 Sleep sleep_var
 Send {Blind}{Click up}{LShift up}
+return
+
+~*XButton2::2
 return
 
 ~*PgDn::
