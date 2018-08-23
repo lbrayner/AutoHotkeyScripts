@@ -139,18 +139,21 @@ return
 global Ranged
 if(Ranged)
 {
-    sleep_var := 100
     Send {Blind}{z DownTemp}
-    Sleep sleep_var
-    Send {Blind}{z up}
-    LeaveRanged()
     return
 }
-LeaveStealth()
 Send {Blind}{LCtrl DownTemp}
 return
 
 ~*PgDn up::
+global Ranged
+LeaveStealth()
+if(Ranged)
+{
+    Send {Blind}{z up}
+    LeaveRanged()
+    return
+}
 Send {Blind}{LCtrl up}
 return
 
@@ -163,19 +166,42 @@ return
 global Ranged
 if(Ranged)
 {
-    sleep_var := 100
     Send {Blind}{x DownTemp}
-    Sleep sleep_var
-    Send {Blind}{x up}
-    Sleep sleep_var
-    LeaveRanged()
     return
 }
 Send {Blind}{e DownTemp}
 return
 
 ~*Numpad7 up::
+global Ranged
+LeaveStealth()
+if(Ranged)
+{
+    Send {Blind}{x up}
+    LeaveRanged()
+    return
+}
 Send {Blind}{e up}
+return
+
+~*Numpad9::
+global Ranged
+if(Ranged)
+{
+    Send {Blind}{f DownTemp}
+    return
+}
+return
+
+~*Numpad9 up::
+global Ranged
+LeaveStealth()
+if(Ranged)
+{
+    Send {Blind}{f up}
+    LeaveRanged()
+    return
+}
 return
 
 ~*NumpadSub::
