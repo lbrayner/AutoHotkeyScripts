@@ -15,7 +15,6 @@ OneEighty(x)
 UnreadyWeapon()
 {
 	global ReadyWeapon
-
     if(ReadyWeapon)
     {
         ReadyWeapon := 0

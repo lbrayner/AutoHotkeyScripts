@@ -48,7 +48,13 @@ return
 ~*Numpad4::a
 return
 
-~*Numpad5::s
+~*Numpad5::
+UnreadyWeapon()
+Send {s DownTemp}
+return
+
+~*Numpad5 up::
+Send {s up}
 return
 
 ~*Numpad6::d
@@ -115,4 +121,46 @@ return
 SetKeyDelay -1
 num9_var := false
 Send {Blind}{q up}
+return
+
+~*NumpadMult::
+SetKeyDelay -1
+var := true
+sleep_var := 10
+speed := 1
+displacement_wiggle := 30
+while(var)
+{	
+	MouseMove, (A_ScreenWidth/2 + displacement_wiggle), A_ScreenHeight/2, speed
+	Sleep sleep_var
+	MouseMove, A_ScreenWidth/2, (A_ScreenHeight/2  + displacement_wiggle), speed
+	Sleep sleep_var
+	MouseMove, (A_ScreenWidth/2 - displacement_wiggle), A_ScreenHeight/2, speed
+	Sleep sleep_var
+	MouseMove, A_ScreenWidth/2, (A_ScreenHeight/2  - displacement_wiggle), speed
+	Sleep sleep_var
+}
+return
+
+~*NumpadMult up::
+var := false
+return
+
+~*NumpadDot::
+SetKeyDelay -1
+var := true
+sleep_var := 10
+while(var)
+{	
+	Send {Blind}{x DownTemp}{c DownTemp}
+	;Send {Blind}{Click down} {Click down right}
+	Sleep sleep_var
+	;Send {Blind}{Click up} {Click up right}
+	Send {Blind}{x up}{c up}
+	Sleep sleep_var
+}
+return
+
+~*NumpadDot up::
+var := false
 return

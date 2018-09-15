@@ -33,8 +33,6 @@ CeaseAttacking()
     Attack_var := false
 }
 
-
-
 ~*NumpadDiv::
 SetKeyDelay -1
 global ReadyWeapon
