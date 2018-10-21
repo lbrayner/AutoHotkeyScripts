@@ -3,7 +3,7 @@
 
 #IfWinActive, ahk_exe HellbladeGame-Win64-Shipping.exe
 
-OneEighty(x)
+MouseMoveVertically(x)
 {
     DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
@@ -88,8 +88,7 @@ Send {f up}
 return
 
 ~*Numpad2::
-global OneEightyAll
-OneEighty(4600)
+MouseMoveVertically(4600)
 return
 
 ~*PgUp::

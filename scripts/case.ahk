@@ -3,14 +3,12 @@
 
 #IfWinActive, ahk_exe  case.exe
 
-global OneEightyAll := 3600
-
-OneEighty(x)
+MouseMoveHorizontally(x)
 {
-	DllCall("mouse_event", uint, 0, int, x, int, 0, uint, 0, int, 0)
+    DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
-Home::Esc
+~Home::Esc
 return
 
 ~*Right::
@@ -23,35 +21,17 @@ SetKeyDelay -1
 Send {Blind}{1 up}
 return
 
-;*WheelUp::
-;SetKeyDelay -1
-;sleep_var := 50
-;Send {Blind}{2 DownTemp}
-;Sleep sleep_var
-;Send {Blind}{2 up}
-;return
-;
-;*WheelDown::
-;SetKeyDelay -1
-;sleep_var := 50
-;Send {Blind}{3 DownTemp}
-;Sleep sleep_var
-;Send {Blind}{3 up}
-;return
-
-
 ~*Numpad2::
-global OneEightyAll
-OneEighty(OneEightyAll)
+MouseMoveHorizontally(900)
 return
 
-Numpad8::w
+~*Numpad8::w
 return
-Numpad4::a
+~*Numpad4::a
 return
-Numpad5::s
+~*Numpad5::s
 return
-Numpad6::d
+~*Numpad6::d
 return
 
 ~*Numpad9::
