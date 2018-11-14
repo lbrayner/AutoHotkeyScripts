@@ -23,6 +23,7 @@ return
 
 *NumpadEnter::
 SetKeyDelay -1
+UnreadyWeapon()
 Send {Blind}{LShift DownTemp}
 return
 
