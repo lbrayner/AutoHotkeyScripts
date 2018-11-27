@@ -4,6 +4,7 @@
 #IfWinActive, ahk_exe  SOTTR.exe
 
 global ReadyWeapon := 0
+global Walk := 0
 global Modifier1 := false
 
 global OneEighty := 5900
@@ -21,7 +22,21 @@ UnreadyWeapon()
 	Send {Click up right}
 }
 
+UnWalk()
+{
+    global Walk
+
+    Walk =: 0
+    Send {Blind}{F6 up}
+}
 	
+Walk()
+{
+    global Walk
+
+    Walk =: 1
+    Send {Blind}{F6 DownTemp}
+}
 
 EnableModifier1()
 {
@@ -59,6 +74,7 @@ SetKeyDelay -1
 var := true
 sleep_var := 100
 UnreadyWeapon()
+Send {Blind}{F7 DownTemp}
 while(var)
 {	
 	Send {Blind}{c DownTemp}
@@ -70,11 +86,13 @@ return
 
 *Numpad1 up::
 var := false
+Send {Blind}{F7 up}
 return
 
 ~*Numpad0::
 SetKeyDelay -1
 UnreadyWeapon()
+UnWalk()
 return
 
 *~Insert::
@@ -122,6 +140,7 @@ return
 
 ~*NumpadEnter::
 UnreadyWeapon()
+UnWalk()
 EnableModifier1()
 return
 
@@ -185,4 +204,18 @@ MouseMoveHorizontally(OneEighty)
 return
 
 *~XButton2::4
+return
+
+~*XButton1::
+global ReadyWeapon
+if(ReadyWeapon)
+{
+    Send {Blind}{F8 DownTemp}
+    return
+}
+Walk()
+return
+
+~*XButton1 up::
+Send {Blind}{F8 up}
 return
