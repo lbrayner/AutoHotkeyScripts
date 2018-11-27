@@ -46,13 +46,22 @@ return
 ~*Numpad8::w
 return
 
-~*Numpad0::
+*Numpad0::
+SetKeyDelay -1
 UnFocus()
-Send {Space DownTemp}
+sleep_var := 50
+var := true
+while(var)
+{
+    Send {Blind}{Space DownTemp}
+    Sleep sleep_var
+    Send {Blind}{Space up}
+    Sleep sleep_var
+}
 return
 
-~*Numpad0 up::
-Send {Space up}
+*Numpad0 up::
+var := false
 return
 
 ~*Numpad1::c

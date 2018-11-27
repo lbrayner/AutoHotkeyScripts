@@ -149,7 +149,6 @@ return
 
 *Numpad7::
 SetKeyDelay -1
-global ReadyWeapon
 sleep_var := 50
 var := true
 while(var)
