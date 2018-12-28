@@ -1,7 +1,7 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
 
-#IfWinActive, ahk_exe  SOTTR.exe
+#IfWinActive, ahk_exe SOTTR.exe
 
 global ReadyWeapon := 0
 global Walk := 0
@@ -71,11 +71,21 @@ return
 
 *Numpad1::
 SetKeyDelay -1
-var := true
-sleep_var := 100
 UnreadyWeapon()
+global Modifier1
+if(Modifier1)
+{
+    numpad1_alt := true
+}
+if(numpad1_alt)
+{
+    Send {Blind}{c DownTemp}
+    return
+}
+numpad1_var := true
+sleep_var := 100
 Send {Blind}{F7 DownTemp}
-while(var)
+while(numpad1_var)
 {	
 	Send {Blind}{c DownTemp}
 	Sleep sleep_var	
@@ -85,7 +95,9 @@ while(var)
 return
 
 *Numpad1 up::
-var := false
+numpad1_alt := false
+numpad1_var := false
+Send {Blind}{c up}
 Send {Blind}{F7 up}
 return
 
@@ -101,6 +113,7 @@ return
 
 *~Home::
 UnreadyWeapon()
+UnWalk()
 Send {Esc DownTemp}
 return
 
@@ -120,17 +133,20 @@ return
 NumpadSub::c
 return
 
+Numpad9::q
+return
+
 *NumpadDot::
 SetKeyDelay -1
 var := true
-sleep_var := 100
+sleep_var := 25
 while(var)
 {	
-	Send {Blind}{Numpad4 DownTemp}
+	Send {Blind}{a DownTemp}
 	Sleep sleep_var	
-	Send {Blind}{Numpad4 up}{Numpad6 DownTemp}
+	Send {Blind}{a up}{d DownTemp}
 	Sleep sleep_var	
-	Send {Blind}{Numpad6 up}
+	Send {Blind}{d up}
 }
 return
 
@@ -150,6 +166,16 @@ return
 
 *Numpad7::
 SetKeyDelay -1
+global Modifier1
+if(Modifier1)
+{
+    numpad7_alt := true
+}
+if(numpad7_alt)
+{
+    Send {Blind}{e DownTemp}
+    return
+}
 sleep_var := 50
 var := true
 while(var)
@@ -163,6 +189,8 @@ return
 
 *Numpad7 up::
 var := false
+numpad7_alt := false
+Send {Blind}{e up}
 return
 
 ~*PgDn::
@@ -173,7 +201,12 @@ if(Modifier1)
 {
     alt := true
 }
-if(ReadyWeapon || alt)
+if(alt)
+{
+    Send {Blind}{f DownTemp}
+    return
+}
+if(ReadyWeapon)
 {
     Send {Blind}{F5 DownTemp}
     return
@@ -193,10 +226,9 @@ return
 var := false
 alt := false
 DisableModifier1()
+Send {Blind}{f up}
 Send {Blind}{F5 up}
 return
-
-F12::Escape
 
 *~Numpad2::
 global OneEighty
@@ -218,4 +250,22 @@ return
 
 ~*XButton1 up::
 Send {Blind}{F8 up}
+return
+
+~*PgUp::
+global Modifier1
+if(Modifier1)
+{
+    pgup_alt := true
+}
+if(pgup_alt)
+{
+    Send {Blind}{F5 DownTemp}
+    return
+}
+return
+
+~*PgUp up::
+pgup_alt := false
+Send {Blind}{F5 up}
 return
