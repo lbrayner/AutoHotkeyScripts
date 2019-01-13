@@ -16,7 +16,7 @@ UnreadyWeapon()
 	global ReadyWeapon
 		
 	ReadyWeapon := 0
-	Send {Click up right}
+	Send {F5 up}
 }
 
 ~*NumpadDiv::
@@ -25,11 +25,17 @@ global ReadyWeapon
 if(!ReadyWeapon)
 {	
 	ReadyWeapon := 1
-	Send {Click DownTemp right}
+	Send {F5 DownTemp}
 }
 return
 
 ~*Home::Esc
+return
+
+~*Numpad1::c
+return
+
+~*Numpad3::z
 return
 
 ~*Numpad4::a
@@ -42,6 +48,9 @@ return
 return
 
 ~*Numpad8::w
+return
+
+~*Numpad7::e
 return
 
 ~*Numpad9::q
@@ -71,14 +80,12 @@ return
 ~*PgUp::r
 return
 
-~*Numpad7::e
-return
-
 ~*RButton::
 Send {Blind}{f DownTemp}
 return
 
 ~*RButton up::
+UnreadyWeapon()
 Send {Blind}{f up}
 return
 
@@ -87,3 +94,21 @@ global OneEighty
 MouseMoveHorizontally(OneEighty)
 return
 
+~*Insert::Tab
+return
+
+; LCtrl::
+; SetKeyDelay -1
+; Send {Blind}{w DownTemp}
+; return
+
+; LCtrl up::
+; SetKeyDelay -1
+; Send {Blind}{w up}
+; return
+
+~*End::m
+return
+
+; *~XButton1::h
+; return
