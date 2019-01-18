@@ -67,16 +67,6 @@ return
 ~*Numpad7::e
 return
 
-;~*Numpad7::
-;SetKeyDelay -1
-;Send {Blind}{e DownTemp}{t DownTemp}
-;return
-;
-;~*Numpad7 up::
-;SetKeyDelay -1
-;Send {Blind}{e up}{t up}
-;return
-
 ~*PgDn::f
 return
 
