@@ -4,7 +4,7 @@
 #IfWinActive, ahk_exe sdhdship.exe
 
 global ReadyWeapon := 0
-global OneEighty := 6000
+global OneEighty := 4000
 
 MouseMoveHorizontally(x)
 {
@@ -47,31 +47,31 @@ return
 ~*Numpad6::d
 return
 
-~*Numpad8::w
-return
-
 ~*Numpad7::e
 return
 
 ~*Numpad9::q
 return
 
+~*Numpad8::
+SetKeyDelay -1
+Send {Blind}{w DownTemp}{LCtrl DownTemp}
+return
+
+~*Numpad8 up::
+SetKeyDelay -1
+Send {Blind}{w up}{LCtrl up}
+return
+
 ~*Numpad0::
+SetKeyDelay -1
 UnreadyWeapon()
 Send {Blind}{Space DownTemp}
 return
 
 ~*Numpad0 up::
+SetKeyDelay -1
 Send {Blind}{Space up}
-return
-
-~*NumpadEnter::
-UnreadyWeapon()
-Send {Blind}{LCtrl DownTemp}
-return
-
-~*NumpadEnter up::
-Send {Blind}{LCtrl up}
 return
 
 ~*PgDn::f
@@ -81,15 +81,18 @@ return
 return
 
 ~*RButton::
+SetKeyDelay -1
 Send {Blind}{f DownTemp}
 return
 
 ~*RButton up::
+SetKeyDelay -1
 UnreadyWeapon()
 Send {Blind}{f up}
 return
 
 *~Numpad2::
+SetKeyDelay -1
 global OneEighty
 MouseMoveHorizontally(OneEighty)
 return
@@ -97,18 +100,5 @@ return
 ~*Insert::Tab
 return
 
-; LCtrl::
-; SetKeyDelay -1
-; Send {Blind}{w DownTemp}
-; return
-
-; LCtrl up::
-; SetKeyDelay -1
-; Send {Blind}{w up}
-; return
-
 ~*End::m
 return
-
-; *~XButton1::h
-; return
