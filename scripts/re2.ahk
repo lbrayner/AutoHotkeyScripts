@@ -20,7 +20,7 @@ UnreadyKnife()
 	global ReadyKnife
 		
 	ReadyKnife := 0
-	Send {q up}
+	Send {e up}
 }
 
 ~*NumpadDiv::
@@ -34,15 +34,25 @@ if(!ReadyWeapon)
 }
 return
 
-~*Numpad9::
+~*Numpad0::
 SetKeyDelay -1
 UnreadyWeapon()
 global ReadyKnife
 if(!ReadyKnife)
 {	
 	ReadyKnife := 1
-	Send {q DownTemp}
+	Send {e DownTemp}
 }
+return
+
+~*Numpad7::
+SetKeyDelay -1
+UnreadyWeapon()
+return
+
+~*Numpad7 up::
+SetKeyDelay -1
+UnreadyKnife()
 return
 
 ~*RButton::
