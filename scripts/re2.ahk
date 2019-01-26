@@ -1,7 +1,35 @@
 #UseHook
+; #SingleInstance force
 #MaxHotkeysPerInterval 200  ;example from Help file
+#include Lib\AutoHotInterception.ahk
 
 #IfWinActive, ahk_exe re2.exe
+
+;; interception code START
+
+global AHI := new AutoHotInterception()
+mouseID := AHI.GetMouseId(0x093A, 0x2521)
+
+AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
+
+MouseWheelEvent(state)
+{
+    SetKeyDelay -1
+    mouse_wheel_var := 100
+    if(state == 1)
+    {
+        Send {Blind}{Up DownTemp}
+        Sleep mouse_wheel_var
+        Send {Blind}{Up up}
+        return
+    }
+    Send {Blind}{Down DownTemp}
+    Sleep mouse_wheel_var
+    Send {Blind}{Down up}
+    return
+}
+
+;; interception code END
 
 global ReadyWeapon := 0
 
