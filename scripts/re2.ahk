@@ -3,33 +3,43 @@
 #MaxHotkeysPerInterval 200  ;example from Help file
 #include Lib\AutoHotInterception.ahk
 
-#IfWinActive, ahk_exe re2.exe
-
 ;; interception code START
 
 global AHI := new AutoHotInterception()
-mouseID := AHI.GetMouseId(0x093A, 0x2521)
+mouseID := AHI.GetMouseId(0x093A, 0x2521) ; ELECOM USB Mouse
 
 AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
 
 MouseWheelEvent(state)
 {
     SetKeyDelay -1
+    if !WinActive("ahk_exe re2.exe")
+    {
+        if(state == 1)
+        {
+            Send {WheelUp 1}
+            return
+        }
+        Send {WheelDown 1}
+        return
+    }
     mouse_wheel_var := 100
     if(state == 1)
     {
-        Send {Blind}{Up DownTemp}
+        Send {Up DownTemp}
         Sleep mouse_wheel_var
-        Send {Blind}{Up up}
+        Send {Up up}
         return
     }
-    Send {Blind}{Down DownTemp}
+    Send {Down DownTemp}
     Sleep mouse_wheel_var
-    Send {Blind}{Down up}
+    Send {Down up}
     return
 }
 
 ;; interception code END
+
+#IfWinActive, ahk_exe re2.exe
 
 global ReadyWeapon := 0
 
