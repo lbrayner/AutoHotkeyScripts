@@ -1,11 +1,10 @@
 #UseHook
-; #SingleInstance force
 #MaxHotkeysPerInterval 200  ;example from Help file
 #include Lib\AutoHotInterception.ahk
 
 ;; interception code START
 
-global AHI := new AutoHotInterception()
+AHI := new AutoHotInterception()
 mouseID := AHI.GetMouseId(0x093A, 0x2521) ; ELECOM USB Mouse
 
 AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
@@ -116,4 +115,9 @@ return
 
 *~Home up::
 Send {Esc up}
+return
+
+*~Numpad1::
+UnreadyWeapon()
+UnreadyKnife()
 return
