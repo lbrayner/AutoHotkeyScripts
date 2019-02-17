@@ -49,19 +49,19 @@ return
 *Numpad0::
 SetKeyDelay -1
 UnFocus()
-sleep_var := 50
-var := true
-while(var)
+numpad0_sleep_var := 50
+numpad0_var := true
+while(numpad0_var)
 {
     Send {Blind}{Space DownTemp}
-    Sleep sleep_var
+    Sleep numpad0_sleep_var
     Send {Blind}{Space up}
-    Sleep sleep_var
+    Sleep numpad0_sleep_var
 }
 return
 
 *Numpad0 up::
-var := false
+numpad0_var := false
 return
 
 ~*Numpad1::c
