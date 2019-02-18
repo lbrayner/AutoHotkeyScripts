@@ -22,17 +22,21 @@ MouseWheelEvent(state)
         Send {WheelDown 1}
         return
     }
-    mouse_wheel_var := 100
-    if(state == 1)
+    if WinActive("ahk_exe re2.exe")
     {
-        Send {Up DownTemp}
+        mouse_wheel_var := 100
+        if(state == 1)
+        {
+            Send {Up DownTemp}
+            Sleep mouse_wheel_var
+            Send {Up up}
+            return
+        }
+        Send {Down DownTemp}
         Sleep mouse_wheel_var
-        Send {Up up}
-        return
+        Send {Down up}
     }
-    Send {Down DownTemp}
-    Sleep mouse_wheel_var
-    Send {Down up}
+
     return
 }
 

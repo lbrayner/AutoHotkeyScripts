@@ -1,15 +1,56 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
+#include Lib\AutoHotInterception.ahk
+
+;; interception code START
+
+AHI := new AutoHotInterception()
+mouseID := AHI.GetMouseId(0x093A, 0x2521) ; ELECOM USB Mouse
+
+AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
+
+MouseWheelEvent(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe TEW2.exe")
+    {
+        if(state == 1)
+        {
+            Send {WheelUp 1}
+            return
+        }
+        Send {WheelDown 1}
+        return
+    }
+    if WinActive("ahk_exe TEW2.exe")
+    {
+        mouse_wheel_var := 100
+        if(state == 1)
+        {
+            Send {2 DownTemp}
+            Sleep mouse_wheel_var
+            Send {2 up}
+            return
+        }
+        Send {3 DownTemp}
+        Sleep mouse_wheel_var
+        Send {3 up}
+    }
+
+    return
+}
+
+;; interception code END
 
 #IfWinActive, ahk_exe  TEW2.exe
 
 CoordMode, Mouse, Screen
 
-global OneEightyAll := 380
+global OneEightyAll := 500
 
-OneEighty(x)
+MouseMoveVertically(x)
 {
-	MouseMove x,0,25, R
+	MouseMove x,0,35, R
 }
 
 UnreadyWeapon()
@@ -139,8 +180,8 @@ Sleep sleep_var
 Send {Blind}{4 up}
 return
 
-*XButton1::v
-return
+; *XButton1::v
+; return
 
 *XButton2::
 SetKeyDelay -1
@@ -157,7 +198,7 @@ return
 
 ~*Numpad2::
 global OneEightyAll
-OneEighty(OneEightyAll)
+MouseMoveVertically(OneEightyAll)
 return
 
 ~*NumpadDot::
@@ -177,4 +218,3 @@ return
 ~*NumpadDot up::
 var := false
 return
-
