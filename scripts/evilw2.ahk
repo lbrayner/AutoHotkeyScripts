@@ -12,16 +12,7 @@ AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
 MouseWheelEvent(state)
 {
     SetKeyDelay -1
-    if !WinActive("ahk_exe TEW2.exe")
-    {
-        if(state == 1)
-        {
-            Send {WheelUp 1}
-            return
-        }
-        Send {WheelDown 1}
-        return
-    }
+
     if WinActive("ahk_exe TEW2.exe")
     {
         mouse_wheel_var := 100
@@ -35,7 +26,15 @@ MouseWheelEvent(state)
         Send {3 DownTemp}
         Sleep mouse_wheel_var
         Send {3 up}
+        return
     }
+
+    if(state == 1)
+    {
+        Send {WheelUp 1}
+        return
+    }
+    Send {WheelDown 1}
 
     return
 }
@@ -45,13 +44,6 @@ MouseWheelEvent(state)
 #IfWinActive, ahk_exe  TEW2.exe
 
 CoordMode, Mouse, Screen
-
-global OneEightyAll := 500
-
-MouseMoveVertically(x)
-{
-	MouseMove x,0,35, R
-}
 
 UnreadyWeapon()
 {
@@ -78,7 +70,7 @@ if(!ReadyWeapon)
 }
 return
 
-~*Home::Esc
+*Home::Esc
 return
 
 ~*Numpad4::a
@@ -90,7 +82,21 @@ return
 ~*Numpad6::d
 return
 
-~*Numpad8::w
+~*Numpad8::
+SetKeyDelay -1
+global Numpad2_down
+if(Numpad2_down)
+{
+    return
+}
+global Numpad8_down := true
+Send {w DownTemp}
+return
+
+~*Numpad8 up::
+SetKeyDelay -1
+Send {w up}
+global Numpad8_down := false
 return
 
 ~*Numpad0::Space
@@ -114,13 +120,19 @@ return
 ~*PgUp::r
 return
 
+~*NumpadMult::Home
+return
+
+~*NumpadSub::End
+return
+
 ~*NumpadEnter::
 UnreadyWeapon()
-Send {Blind}{LCtrl DownTemp}
+Send {LCtrl DownTemp}
 return
 
 ~*NumpadEnter up::
-Send {Blind}{LCtrl up}
+Send {LCtrl up}
 return
 
 ~*Delete::v
@@ -149,9 +161,9 @@ if(ReadyWeapon)
     return
 }
 sleep_var := 100
-Send {Blind}{2 DownTemp}
+Send {2 DownTemp}
 Sleep sleep_var
-Send {Blind}{2 up}
+Send {2 up}
 return
 
 *WheelDown::
@@ -162,9 +174,9 @@ if(ReadyWeapon)
     return
 }
 sleep_var := 100
-Send {Blind}{3 DownTemp}
+Send {3 DownTemp}
 Sleep sleep_var
-Send {Blind}{3 up}
+Send {3 up}
 return
 
 *MButton::
@@ -175,9 +187,9 @@ if(ReadyWeapon)
     return
 }
 sleep_var := 100
-Send {Blind}{4 DownTemp}
+Send {4 DownTemp}
 Sleep sleep_var
-Send {Blind}{4 up}
+Send {4 up}
 return
 
 ; *XButton1::v
@@ -191,14 +203,32 @@ if(ReadyWeapon)
     return
 }
 sleep_var := 100
-Send {Blind}{5 DownTemp}
+Send {5 DownTemp}
 Sleep sleep_var
-Send {Blind}{5 up}
+Send {5 up}
 return
 
 ~*Numpad2::
-global OneEightyAll
-MouseMoveVertically(OneEightyAll)
+SetKeyDelay -1
+global Numpad2_down := true
+global Numpad8_down
+if(Numpad8_down)
+{
+    Send {w up}
+}
+Send {s DownTemp}
+Sleep 50
+Send {Space DownTemp}
+Sleep 50
+Send {s up}{Space up}
+if(Numpad8_down)
+{
+    Send {w DownTemp}
+}
+return
+
+~*Numpad2 up::
+global Numpad2_down := false
 return
 
 ~*NumpadDot::
@@ -207,11 +237,11 @@ var := true
 sleep_var := 50
 while(var)
 {	
-	Send {Blind}{a DownTemp}{f DownTemp}
+	Send {a DownTemp}{f DownTemp}
 	Sleep sleep_var	
-	Send {Blind}{d DownTemp}{a up}{f up}
+	Send {d DownTemp}{a up}{f up}
 	Sleep sleep_var
-	Send {Blind}{d up}
+	Send {d up}
 }
 return
 
