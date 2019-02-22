@@ -47,27 +47,33 @@ CoordMode, Mouse, Screen
 
 UnreadyWeapon()
 {
-	global ReadyWeapon
-    if(ReadyWeapon)
+    Run kill_interaccel.bat, "", Hide
+	global WeaponReady
+    if(WeaponReady)
     {
-        ReadyWeapon := 0
+        WeaponReady := 0
         Send {Click up right}
     }
 }
 
+ReadyWeapon()
+{
+    Run run_interaccel.bat, "", Hide
+    global WeaponReady
+    if(!WeaponReady)
+    {	
+        WeaponReady := 1
+        Send {Click DownTemp right}
+    }
+}
+
 ~*RButton::
-global ReadyWeapon
-ReadyWeapon := 0
+UnreadyWeapon()
 return
 
 ~*NumpadDiv::
 SetKeyDelay -1
-global ReadyWeapon
-if(!ReadyWeapon)
-{	
-	ReadyWeapon := 1
-	Send {Click DownTemp right}
-}
+ReadyWeapon()
 return
 
 *Home::Esc
@@ -155,8 +161,8 @@ return
 
 *WheelUp::
 SetKeyDelay -1
-global ReadyWeapon
-if(ReadyWeapon)
+global WeaponReady
+if(WeaponReady)
 {
     return
 }
@@ -168,8 +174,8 @@ return
 
 *WheelDown::
 SetKeyDelay -1
-global ReadyWeapon
-if(ReadyWeapon)
+global WeaponReady
+if(WeaponReady)
 {
     return
 }
@@ -181,8 +187,8 @@ return
 
 *MButton::
 SetKeyDelay -1
-global ReadyWeapon
-if(ReadyWeapon)
+global WeaponReady
+if(WeaponReady)
 {
     return
 }
@@ -197,8 +203,8 @@ return
 
 *XButton2::
 SetKeyDelay -1
-global ReadyWeapon
-if(ReadyWeapon)
+global WeaponReady
+if(WeaponReady)
 {
     return
 }
