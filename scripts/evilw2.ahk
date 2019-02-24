@@ -18,14 +18,14 @@ MouseWheelEvent(state)
         mouse_wheel_var := 100
         if(state == 1)
         {
-            Send {2 DownTemp}
+            Send {2 DownTemp}{PgUp DownTemp}
             Sleep mouse_wheel_var
-            Send {2 up}
+            Send {2 up}{PgUp up}
             return
         }
-        Send {3 DownTemp}
+        Send {3 DownTemp}{PgDn DownTemp}
         Sleep mouse_wheel_var
-        Send {3 up}
+        Send {3 up}{PgDn up}
         return
     }
 
@@ -47,10 +47,10 @@ CoordMode, Mouse, Screen
 
 UnreadyWeapon()
 {
-    Run kill_interaccel.bat, "", Hide
 	global WeaponReady
     if(WeaponReady)
     {
+        Run kill_interaccel.bat, "", Hide
         WeaponReady := 0
         Send {Click up right}
     }
@@ -58,10 +58,10 @@ UnreadyWeapon()
 
 ReadyWeapon()
 {
-    Run run_interaccel.bat, "", Hide
     global WeaponReady
     if(!WeaponReady)
     {	
+        Run run_interaccel.bat, "", Hide
         WeaponReady := 1
         Send {Click DownTemp right}
     }
@@ -79,10 +79,24 @@ return
 *Home::Esc
 return
 
-~*Numpad4::a
+~*Numpad4::
+SetKeyDelay -1
+Send {Blind}{a DownTemp}
 return
 
-~*Numpad5::s
+~*Numpad4 up::
+SetKeyDelay -1
+Send {Blind}{a up}
+return
+
+~*Numpad5::
+SetKeyDelay -1
+Send {s DownTemp}
+return
+
+~*Numpad5 up::
+SetKeyDelay -1
+Send {s up}
 return
 
 ~*Numpad6::d
@@ -96,16 +110,23 @@ if(Numpad2_down)
     return
 }
 global Numpad8_down := true
-Send {w DownTemp}
+Send {Blind}{w DownTemp}
 return
 
 ~*Numpad8 up::
 SetKeyDelay -1
-Send {w up}
 global Numpad8_down := false
+Send {Blind}{w up}
 return
 
-~*Numpad0::Space
+~*Numpad0::
+SetKeyDelay -1
+Send {Space DownTemp}
+return
+
+~*Numpad0 up::
+SetKeyDelay -1
+Send {Space up}
 return
 
 ~*Numpad1::c
@@ -117,13 +138,37 @@ return
 ~*Numpad9::q
 return
 
-~*Numpad7::e
+~*Numpad7::
+SetKeyDelay -1
+Send {e DownTemp}
 return
 
-~*PgDn::f
+~*Numpad7 up::
+SetKeyDelay -1
+Send {e up}
 return
 
-~*PgUp::r
+*PgDn::
+SetKeyDelay -1
+Send {f DownTemp}
+return
+
+*PgDn up::
+SetKeyDelay -1
+Send {f up}
+return
+
+~*End::t
+return
+
+~*PgUp::
+SetKeyDelay -1
+Send {r DownTemp}
+return
+
+~*PgUp up::
+SetKeyDelay -1
+Send {r up}
 return
 
 ~*NumpadMult::Home
@@ -132,13 +177,15 @@ return
 ~*NumpadSub::End
 return
 
-~*NumpadEnter::
+*NumpadEnter::
+SetKeyDelay -1
 UnreadyWeapon()
-Send {LCtrl DownTemp}
+Send {Blind}{LCtrl DownTemp}
 return
 
-~*NumpadEnter up::
-Send {LCtrl up}
+*NumpadEnter up::
+SetKeyDelay -1
+Send {Blind}{LCtrl up}
 return
 
 ~*Delete::v
@@ -224,9 +271,9 @@ if(Numpad8_down)
 }
 Send {s DownTemp}
 Sleep 50
-Send {Space DownTemp}
+Send {f DownTemp}
 Sleep 50
-Send {s up}{Space up}
+Send {s up}{f up}
 if(Numpad8_down)
 {
     Send {w DownTemp}
