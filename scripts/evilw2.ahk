@@ -290,9 +290,9 @@ var := true
 sleep_var := 50
 while(var)
 {	
-	Send {a DownTemp}{f DownTemp}
+	Send {a DownTemp}{Space DownTemp}
 	Sleep sleep_var	
-	Send {d DownTemp}{a up}{f up}
+	Send {d DownTemp}{a up}{Space up}
 	Sleep sleep_var
 	Send {d up}
 }
