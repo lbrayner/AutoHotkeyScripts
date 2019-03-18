@@ -15,7 +15,7 @@ UnCover()
     if(Cover)
     {
         Cover := 0
-        Send {Space}
+        Send {f up}
     }
 }
 
@@ -27,20 +27,54 @@ Cover()
     if(!Cover)
     {
         Cover := 1
-        Send {Space DownTemp}
+        Send {f DownTemp}
     }
 }
 
-~*Numpad2::
-MouseMoveHorizontally(600)
+UnreadyWeapon()
+{
+	global WeaponReady
+    if(WeaponReady)
+    {
+        Run kill_interaccel.bat, "", Hide
+        WeaponReady := 0
+        Send {Click up right}
+    }
+}
+
+ReadyWeapon()
+{
+    global WeaponReady
+    if(!WeaponReady)
+    {	
+        Run run_interaccel.bat, "", Hide
+        WeaponReady := 1
+        Send {Click DownTemp right}
+    }
+}
+
+~*RButton::
+UnreadyWeapon()
+Send {Click middle}
 return
 
-~*Home::Esc
-return
-
-~*Numpad0::
+~*NumpadDiv::
 SetKeyDelay -1
-Cover()
+ReadyWeapon()
+Send {Click middle}
+return
+
+~*Numpad2::
+MouseMoveHorizontally(200)
+return
+
+~*Home::
+SetKeyDelay -1
+Send {Esc}
+UnCover()
+return
+
+~*Numpad0::Space
 return
 
 ~*Numpad4::a
@@ -61,7 +95,6 @@ return
 ~*Numpad7 up::
 SetKeyDelay -1
 Send {e up}
-Send {Space}
 return
 
 ~*Numpad8::w
@@ -79,8 +112,27 @@ return
 ~*PgUp::r
 return
 
-*PgDn::f
-return
+; *PgDn::
+; SetKeyDelay -1
+; Cover()
+; return
+
+~*PgDn::
+SetKeyDelay -1
+Send {f DownTemp}
+down:=A_TickCount
+Keywait PgDn
+duration:=(A_TickCount-down)
+If (duration>300)
+    Cover()
+Return
+
+~*PgDn up::
+SetKeyDelay -1
+global Cover
+if !Cover
+    Send {f up}
+Return
 
 ~*Insert::Tab
 return
@@ -96,9 +148,4 @@ if(Cycle)
 else
     Send {2}
 Cycle := !Cycle
-return
-
-~*NumpadDiv::
-SetKeyDelay -1
-Send {Click right}
 return
