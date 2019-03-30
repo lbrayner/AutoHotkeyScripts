@@ -11,7 +11,7 @@ MouseMoveHorizontally(x)
 UnCover()
 {
     global Cover
-        
+
     if(Cover)
     {
         Cover := 0
@@ -23,11 +23,12 @@ UnCover()
 Cover()
 {
     global Cover
-        
+
     if(!Cover)
     {
         Cover := 1
-        Send {f DownTemp}
+        if !GetKeyState("f")
+            Send {f DownTemp}
     }
 }
 
@@ -46,7 +47,7 @@ ReadyWeapon()
 {
     global WeaponReady
     if(!WeaponReady)
-    {	
+    {
         Run run_interaccel.bat, "", Hide
         WeaponReady := 1
         Send {Click DownTemp right}
@@ -86,24 +87,24 @@ return
 ~*Numpad6::d
 return
 
-~*Numpad7::
-SetKeyDelay -1
-UnCover()
-Send {e DownTemp}
-return
-
-~*Numpad7 up::
-SetKeyDelay -1
-Send {e up}
+~*Numpad7::e
 return
 
 ~*Numpad8::w
 return
 
-~*Numpad1::c
+~*Numpad3::z
 return
 
-~*Numpad3::z
+~*Numpad1::
+SetKeyDelay -1
+UnCover()
+Send {c DownTemp}
+return
+
+~*Numpad1 up::
+SetKeyDelay -1
+Send {c up}
 return
 
 ~*Numpad9::q
@@ -123,7 +124,7 @@ Send {f DownTemp}
 down:=A_TickCount
 Keywait PgDn
 duration:=(A_TickCount-down)
-If (duration>300)
+If (duration>500)
     Cover()
 Return
 
@@ -140,7 +141,7 @@ return
 ~*End::t
 return
 
-~*Right::
+*Right::
 SetKeyDelay -1
 global Cycle
 if(Cycle)
