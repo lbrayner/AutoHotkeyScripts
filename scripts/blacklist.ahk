@@ -40,7 +40,7 @@ ReadyWeapon()
 return
 
 ~*Numpad2::
-MouseMoveHorizontally(200)
+MouseMoveHorizontally(120)
 return
 
 ~*Home::
@@ -51,12 +51,15 @@ return
 ; ~*Insert::Tab
 ; return
 
-~*Right::
-SetKeyDelay -1
-global Cycle
-if(Cycle)
-    Send {1}
-else
-    Send {2}
-Cycle := !Cycle
+~*Numpad0::Space
 return
+
+; ~*Right::
+; SetKeyDelay -1
+; global Cycle
+; if(Cycle)
+;     Send {1}
+; else
+;     Send {2}
+; Cycle := !Cycle
+; return
