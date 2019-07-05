@@ -25,7 +25,7 @@ MouseWheelEvent(state)
     if WinActive("ahk_exe re2.exe")
     {
         mouse_wheel_var := 100
-        if(state == 1)
+        if(state == 1) ; UP
         {
             Send {Up DownTemp}
             Sleep mouse_wheel_var
@@ -49,7 +49,7 @@ global ReadyWeapon := 0
 UnreadyWeapon()
 {
 	global ReadyWeapon
-		
+
 	ReadyWeapon := 0
 	Send {Click up right}
 }
@@ -59,7 +59,7 @@ global ReadyKnife := 0
 UnreadyKnife()
 {
 	global ReadyKnife
-		
+
 	ReadyKnife := 0
 	Send {e up}
 }
@@ -69,7 +69,7 @@ SetKeyDelay -1
 UnreadyKnife()
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {Click DownTemp right}
 }
@@ -80,7 +80,7 @@ SetKeyDelay -1
 UnreadyWeapon()
 global ReadyKnife
 if(!ReadyKnife)
-{	
+{
 	ReadyKnife := 1
 	Send {e DownTemp}
 }
