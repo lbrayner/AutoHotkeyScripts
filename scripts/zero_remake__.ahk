@@ -1,5 +1,5 @@
 #UseHook
-#MaxHotkeysPerInterval 200  
+#MaxHotkeysPerInterval 200
 
 CoordMode, Mouse, Screen
 
@@ -20,15 +20,9 @@ global ReadyWeapon := 0
   ; _In_ ULONG_PTR dwExtraInfo
 ; );
 
-
 CenterMouse()
 {
 	DllCall("mouse_event", uint, 32769, int, 32768, int, 65536, uint, 0, int, 0)
-	
-	; DllCall("mouse_event", uint, 0, uint, 32768, uint, 32768, uint, 0, uint, 0)
-	
-	
-	
 }
 
 StopTurning()
@@ -41,7 +35,7 @@ StopTurning()
 StopWalking()
 {
 	global Walking
-	
+
 	if(Walking)
 		Walking := false
 }
@@ -49,7 +43,7 @@ StopWalking()
 Release()
 {
 	global ReadyWeapon
-	
+
 	if(ReadyWeapon)
 	{
 		; Send {Blind}{x up}
@@ -58,38 +52,38 @@ Release()
 	}
 }
 
-Loop, 
-{	
-		
+Loop,
+{
+
 	global SleepVar
 	global MouseMove
-		
-	if(MouseMove)	
-	{			
+
+	if(MouseMove)
+	{
 		CenterMouse()
 	}
-	
+
 	MouseGetPos, PosX1, PosY1
-	
+
 	Sleep SleepVar
-	
+
 	if(MouseMove)
-	{	
+	{
 		MouseGetPos, PosX2, PosY2
-		
+
 		Pos := PosX2 - PosX1
-		
+
 		if(Pos < 0)
 		{
-			
+
 			if((Pos*(-1)) < Displacement && (Pos*(-1))  Minimu)
 			{
 				turningRight := 0
-				turningLeft := 1 
+				turningLeft := 1
 				still := 0
-				
+
 				SendInput {Blind}{Numpad6 up}
-				SendInput {Blind}{Numpad4 DownTemp}				
+				SendInput {Blind}{Numpad4 DownTemp}
 			}
 		}
 		else
@@ -101,8 +95,8 @@ Loop,
 					turningRight := 1
 					turningLeft := 0
 					still := 0
-					
-					SendInput {Blind}{Numpad4 up}				
+
+					SendInput {Blind}{Numpad4 up}
 					SendInput {Blind}{Numpad6 DownTemp}
 				}
 			}
@@ -181,23 +175,11 @@ Release()
 StopWalking()
 return
 
-; *LButton::
-; SetKeyDelay -1
-; Send {Blind}{c Downtemp}
-; return
-
-; *LButton up::
-; SetKeyDelay -1
-; Send {Blind}{c up}
-; return
-
 ~*Numpad2::
 SetKeyDelay -1
 global Walking
 Walking := true
 return
-
-
 
 *Numpad8::
 SetKeyDelay -1
@@ -206,7 +188,7 @@ global ReadyWeapon
 if (!Walking && !ReadyWeapon)
 	Send {Blind}{Space DownTemp}{Numpad8 DownTemp}
 else
-	Send {Blind}{Numpad8 DownTemp}	
+	Send {Blind}{Numpad8 DownTemp}
 return
 
 *Numpad8 up::
@@ -241,9 +223,9 @@ SetKeyDelay -1
 var := true
 sleep_var := 1
 while(var)
-{	
+{
 	Send {Blind}{Numpad4 DownTemp}
-	Sleep sleep_var	
+	Sleep sleep_var
 	Send {Blind}{Numpad6 DownTemp}{Numpad4 up}
 	Sleep sleep_var
 	Send {Blind}{Numpad6 up}
@@ -254,24 +236,24 @@ return
 var := false
 return
 
-*RCtrl:: 
+*RCtrl::
 SetKeyDelay -1
 MouseMove := 0
 Send {LCtrl DownTemp}
 return
 
-*RCtrl up:: 
+*RCtrl up::
 SetKeyDelay -1
 Send {LCtrl up}
 return
 
-*RAlt:: 
+*RAlt::
 SetKeyDelay -1
 MouseMove := 1
 Send {LAlt DownTemp}
 return
 
-*RAlt up:: 
+*RAlt up::
 SetKeyDelay -1
 Send {LAlt up}
 return
