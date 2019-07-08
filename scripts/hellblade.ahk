@@ -11,7 +11,7 @@ MouseMoveVertically(x)
 UnFocus()
 {
     global Focus
-        
+
     if(Focus)
     {
         Focus := 0
@@ -23,7 +23,7 @@ UnFocus()
 Focus()
 {
     global Focus
-        
+
     if(!Focus)
     {
         Focus := 1
