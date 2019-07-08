@@ -27,14 +27,14 @@ MouseWheelEvent(state)
         mouse_wheel_var := 100
         if(state == 1) ; UP
         {
-            Send {2 DownTemp}
+            Send {2 DownTemp}{F1 DownTemp}
             Sleep mouse_wheel_var
-            Send {2 up}
+            Send {2 up}{F1 up}
             return
         }
-        Send {3 DownTemp}
+        Send {3 DownTemp}{F2 DownTemp}
         Sleep mouse_wheel_var
-        Send {3 up}
+        Send {3 up}{F2 up}
     }
 
     return
@@ -44,6 +44,8 @@ MouseWheelEvent(state)
 
 #IfWinActive, ahk_exe  re7.exe
 
+global Attack_var := false
+
 Attack()
 {
     global Attack_var
@@ -52,9 +54,9 @@ Attack()
     UnreadyWeapon()
     while(Attack_var)
     {
-        Send {p DownTemp}
+        Send {o DownTemp}
         Sleep attack_sleep_var
-        Send {p up}
+        Send {o up}
         Sleep attack_sleep_var
     }
 }
@@ -72,7 +74,7 @@ UnreadyWeapon()
 	global ReadyWeapon
 
 	ReadyWeapon := 0
-	Send {Click up right}
+	Send {i up}
 }
 
 ~*NumpadDiv::
@@ -81,7 +83,7 @@ global ReadyWeapon
 if(!ReadyWeapon)
 {
 	ReadyWeapon := 1
-	Send {Click DownTemp right}
+	Send {i DownTemp}
 }
 return
 
@@ -110,15 +112,6 @@ return
 UnreadyWeapon()
 return
 
-; ~*MButton::
-; SetKeyDelay -1
-; sleep_var := 50
-; Send {1 DownTemp}
-; Sleep sleep_var
-; Send {1 up}
-; return
-
-
 ~*Home::
 SetKeyDelay -1
 UnreadyWeapon()
@@ -134,10 +127,6 @@ return
 SetKeyDelay -1
 Attack()
 return
-
-; ~*NumpadDot up::
-; CeaseAttacking()
-; return
 
 ~*LButton up::
 CeaseAttacking()
