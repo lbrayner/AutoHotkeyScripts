@@ -73,6 +73,9 @@ UnreadyWeapon()
 {
 	global ReadyWeapon
 
+    if(!ReadyWeapon)
+        return
+
 	ReadyWeapon := 0
 	Send {i up}
 }
@@ -108,7 +111,18 @@ SetKeyDelay -1
 Send {LShift up}
 return
 
-~*PgUp::
+~*Numpad7::
+SetKeyDelay -1
+UnreadyWeapon()
+return
+
+~*XButton1::
+SetKeyDelay -1
+UnreadyWeapon()
+return
+
+~*XButton2::
+SetKeyDelay -1
 UnreadyWeapon()
 return
 
