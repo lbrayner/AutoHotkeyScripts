@@ -8,6 +8,10 @@ MouseMoveVertically(x)
     DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
+~*Numpad2::
+MouseMoveVertically(4000)
+return
+
 global ReadyWeapon := 0
 
 UnreadyWeapon()
@@ -21,30 +25,57 @@ UnreadyWeapon()
 	Send {Click up right}
 }
 
+global ReadyKnife := false
+
+UnreadyKnife()
+{
+	global ReadyKnife
+
+    if(!ReadyKnife)
+        return
+
+	ReadyKnife := 0
+	Send {e up}
+}
+
 ~*NumpadDiv::
 SetKeyDelay -1
 global ReadyWeapon
+UnreadyKnife()
 if(!ReadyWeapon)
 {
-	ReadyWeapon := 1
+	ReadyWeapon := true
 	Send {Click DownTemp}
+}
+return
+
+~*Numpad9::
+SetKeyDelay -1
+global ReadyKnife
+UnreadyWeapon()
+if(!ReadyKnife)
+{
+    ReadyKnife := true
+    Send {e DownTemp}
 }
 return
 
 ~*RButton up::
 SetKeyDelay -1
 UnreadyWeapon()
+UnreadyKnife()
 return
 
-~*NumpadEnter::
+*NumpadEnter::
 SetKeyDelay -1
 UnreadyWeapon()
-Send {LShift DownTemp}
+UnreadyKnife()
+Send {LCtrl DownTemp}
 return
 
-~*NumpadEnter up::
+*NumpadEnter up::
 SetKeyDelay -1
-Send {LShift up}
+Send {LCtrl up}
 return
 
 ~*PgUp::
@@ -55,12 +86,25 @@ return
 ~*PgUp up::
 SetKeyDelay -1
 UnreadyWeapon()
+UnreadyKnife()
 Send {r up}
+return
+
+~*Numpad7::
+SetKeyDelay -1
+UnreadyKnife()
+Send {e DownTemp}
+return
+
+~*Numpad7 up::
+SetKeyDelay -1
+Send {e up}
 return
 
 *Home::
 SetKeyDelay -1
 UnreadyWeapon()
+UnreadyKnife()
 Send {Esc DownTemp}
 return
 
@@ -70,6 +114,9 @@ Send {Esc up}
 return
 
 ~*F1::Home
+return
+
+~*Numpad0::Space
 return
 
 ~*Numpad1::c
@@ -87,13 +134,7 @@ return
 ~*Numpad6::d
 return
 
-~*Numpad7::e
-return
-
 ~*Numpad8::w
-return
-
-~*Numpad9::q
 return
 
 ~*PgDn::f
