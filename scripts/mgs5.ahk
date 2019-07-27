@@ -7,14 +7,14 @@ global MouseTurnAll := 5050
 
 MouseTurn(x)
 {
-	DllCall("mouse_event", uint, 0, int, x, int, 0, uint, 0, int, 0)
+	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
 
 UnreadyWeapon()
 {
 	global ReadyWeapon
-		
+
 	ReadyWeapon := 0
 	Send {Click up right}
 }
@@ -22,7 +22,7 @@ UnreadyWeapon()
 UnGrab()
 {
 	global Grab
-		
+
 	Grab := 0
 	Send {Click up}
 }
@@ -30,7 +30,7 @@ UnGrab()
 UnreadyBinoculars()
 {
 	global ReadyBinoculars
-		
+
 	ReadyBinoculars := 0
 	Send {f up}
 }
@@ -46,7 +46,7 @@ SetKeyDelay -1
 global ReadyWeapon
 UnreadyBinoculars()
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {Click DownTemp right}
 }
@@ -61,7 +61,7 @@ return
 SetKeyDelay -1
 global Grab
 if(!Grab)
-{	
+{
 	Grab := 1
 	Send {Click DownTemp}
 }
@@ -96,11 +96,11 @@ Numpad6::d
 return
 
 ~*Numpad7::
-Send {Blind}{e DownTemp}
+Send {e DownTemp}
 return
 
 ~*Numpad7 up::
-Send {Blind}{e up}
+Send {e up}
 UnGrab()
 return
 
@@ -110,52 +110,65 @@ return
 Numpad9::q
 return
 
-NumpadSub::g
-return
+; NumpadSub::g
+; return
 
 ~*NumpadEnter::
 SetKeyDelay -1
 UnreadyWeapon()
-Send {Blind}{x DownTemp}
+Send {LShift DownTemp}
 return
 
 ~*NumpadEnter up::
 SetKeyDelay -1
-Send {Blind}{x up}
+Send {LShift up}
 return
 
 ~*PgDn::
 SetKeyDelay -1
-global ReadyBinoculars
-global ReadyWeapon
-sleep_var_pg_dn := 50
-if(ReadyBinoculars)
-{
-	Send {q DownTemp}
-	Sleep sleep_var_pg_dn
-	Send {q up}
-}
-if(!ReadyBinoculars && !ReadyWeapon)
-{	
-	ReadyBinoculars := 1
-	Send {f DownTemp}
-	return
-}
-if(ReadyWeapon)
-{
-	UnreadyBinoculars()
-	Send {f DownTemp}
-	Sleep sleep_var_pg_dn
-	Send {f up}
-}
+Send {f DownTemp}
 return
 
+~*PgDn up::
+SetKeyDelay -1
+Send {f up}
+return
+
+~*XButton1::Tab
+return
+
+; ~*PgDn::
+; SetKeyDelay -1
+; global ReadyBinoculars
+; global ReadyWeapon
+; sleep_var_pg_dn := 50
+; if(ReadyBinoculars)
+; {
+; 	Send {q DownTemp}
+; 	Sleep sleep_var_pg_dn
+; 	Send {q up}
+; }
+; if(!ReadyBinoculars && !ReadyWeapon)
+; {
+; 	ReadyBinoculars := 1
+; 	Send {f DownTemp}
+; 	return
+; }
+; if(ReadyWeapon)
+; {
+; 	UnreadyBinoculars()
+; 	Send {f DownTemp}
+; 	Sleep sleep_var_pg_dn
+; 	Send {f up}
+; }
+; return
+
 ~*PgUp::
-Send {Blind}{r DownTemp}
+Send {r DownTemp}
 return
 
 ~*PgUp up::
-Send {Blind}{r up}
+Send {r up}
 UnreadyWeapon()
 UnGrab()
 return
@@ -165,12 +178,12 @@ SetKeyDelay -1
 UnGrab()
 UnreadyBinoculars()
 UnreadyWeapon()
-Send {Blind}{Esc DownTemp}
+Send {Esc DownTemp}
 return
 
 ~*Home up::
 SetKeyDelay -1
-Send {Blind}{Esc up}
+Send {Esc up}
 return
 
 ~*Esc::
@@ -183,16 +196,16 @@ return
 Insert::Tab
 return
 
-~*Delete::
-SetKeyDelay -1
-global ReadyWeapon
-if(ReadyWeapon)
-{
-	Send {Blind}{x DownTemp}
-	return
-}
-Send {Blind}{v DownTemp}
-return
+; ~*Delete::
+; SetKeyDelay -1
+; global ReadyWeapon
+; if(ReadyWeapon)
+; {
+; 	Send {x DownTemp}
+; 	return
+; }
+; Send {v DownTemp}
+; return
 
 ~*NumpadMult::
 SetKeyDelay -1
@@ -201,9 +214,9 @@ var_mult := true
 UnGrab()
 while(var_mult)
 {
-	Send {Blind}{Click DownTemp}
+	Send {Click DownTemp}
 	Sleep sleep_var_mult
-	Send {Blind}{Click up}
+	Send {Click up}
 	Sleep sleep_var_mult
 }
 return
@@ -218,9 +231,9 @@ sleep_var_plus := 50
 var_plus := true
 while(var_plus)
 {
-	Send {Blind}{e DownTemp}
+	Send {e DownTemp}
 	Sleep sleep_var_plus
-	Send {Blind}{e up}
+	Send {e up}
 	Sleep sleep_var_plus
 }
 return
@@ -231,7 +244,7 @@ return
 
 ~*Delete up::
 SetKeyDelay -1
-Send {Blind}{v up}{x up}
+Send {v up}{x up}
 return
 
 ~*Right::
@@ -277,17 +290,17 @@ Send {4 up}
 return
 
 ~*WheelUp::
-SetKeyDelay -1
-sleep_var := 100
-Send {Blind}{1 DownTemp}
-Sleep sleep_var
-Send {Blind}{1 up}
+global ReadyWeapon
+if(ReadyWeapon)
+{
+    Send {l DownTemp}{l up}
+    return
+}
+Send {1 DownTemp}{p DownTemp}
+Send {1 up}{p up}
 return
 
 ~*WheelDown::
-SetKeyDelay -1
-sleep_var := 100
-Send {Blind}{2 DownTemp}
-Sleep sleep_var
-Send {Blind}{2 up}
+Send {2 DownTemp}{o DownTemp}
+Send {2 up}{o up}
 return
