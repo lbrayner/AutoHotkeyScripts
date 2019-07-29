@@ -23,16 +23,37 @@ UnGrab()
 {
 	global Grab
 
-	Grab := 0
-	Send {Click up}
+    if(Grab)
+	{
+        Grab := 0
+        Send {Click up}
+	}
 }
+
+global ReadyBinoculars := 0
 
 UnreadyBinoculars()
 {
 	global ReadyBinoculars
 
-	ReadyBinoculars := 0
-	Send {f up}
+    if(ReadyBinoculars)
+	{
+        ReadyBinoculars := 0
+        Send {e up}
+	}
+}
+
+DoReadyBinoculars()
+{
+    global ReadyBinoculars
+
+    if(!ReadyBinoculars)
+    {
+        ReadyBinoculars := 1
+        SetKeyDelay -1
+        if !GetKeyState("e")
+            Send {e DownTemp}
+    }
 }
 
 ~*Numpad2::
@@ -57,7 +78,7 @@ SetKeyDelay -1
 UnreadyWeapon()
 return
 
-~*SC07E::
+~*NumpadDot::
 SetKeyDelay -1
 global Grab
 if(!Grab)
@@ -78,11 +99,6 @@ return
 Numpad1::c
 return
 
-~*NumpadDot::
-UnreadyBinoculars()
-UnGrab()
-return
-
 Numpad3::z
 return
 
@@ -96,13 +112,26 @@ Numpad6::d
 return
 
 ~*Numpad7::
+SetKeyDelay -1
+global ReadyBinoculars
 Send {e DownTemp}
+down:=A_TickCount
+Keywait Numpad7
+duration:=(A_TickCount-down)
+if(duration>200)
+{
+    DoReadyBinoculars()
+    return
+}
+Send {e up}
 return
 
-~*Numpad7 up::
-Send {e up}
-UnGrab()
-return
+; ~*Numpad7 up::
+; SetKeyDelay -1
+; global ReadyBinoculars
+; if !ReadyBinoculars
+;     Send {e up}
+; return
 
 Numpad8::w
 return
@@ -223,6 +252,7 @@ return
 
 ~*NumpadMult up::
 var_mult := false
+UnGrab()
 return
 
 ~*NumpadAdd::
