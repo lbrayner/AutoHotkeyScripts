@@ -113,11 +113,6 @@ return
 ~*PgUp::r
 return
 
-; *PgDn::
-; SetKeyDelay -1
-; Cover()
-; return
-
 ~*PgDn::
 SetKeyDelay -1
 Send {f DownTemp}
