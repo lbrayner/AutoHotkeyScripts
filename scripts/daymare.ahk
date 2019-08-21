@@ -34,6 +34,33 @@ Numpad4Event(state)
     }
 }
 
+AHI.SubscribeKey(keyboardId, GetKeySC("Numpad6"), true, Func("Numpad6Event"))
+
+Numpad6Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Numpad6 DownTemp}
+            return
+        }
+        Send {Numpad6 up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {d DownTemp}
+            return
+        }
+        Send {d up}
+        return
+    }
+}
+
 ;; interception code END
 
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
@@ -72,10 +99,10 @@ return
 *Home::Esc
 return
 
-~*XButton1::Tab
+~*XButton1::MButton
 return
 
-~*Insert::Tab
+~*Insert::F3
 return
 
 ~*Numpad0::Space
@@ -100,25 +127,11 @@ SetKeyDelay -1
 Send {s up}
 return
 
-Numpad6::
-SetKeyDelay -1
-Send {d DownTemp}
-return
-
-Numpad6 up::
-SetKeyDelay -1
-Send {d up}
-return
-
 Numpad8::
 SetKeyDelay -1
 Send {w DownTemp}
-return
-
-Numpad8 up::
-SetKeyDelay -1
+keywait Numpad8
 Send {w up}
-return
 
 ~*Numpad7::e
 return
