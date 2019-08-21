@@ -10,14 +10,7 @@ MouseTurn(x)
 	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
-
-UnreadyWeapon()
-{
-	global ReadyWeapon
-
-	ReadyWeapon := 0
-	Send {Click up right}
-}
+global Grab := 0
 
 UnGrab()
 {
@@ -28,6 +21,16 @@ UnGrab()
         Grab := 0
         Send {Click up}
 	}
+}
+
+DoGrab()
+{
+    global Grab
+    if(!Grab)
+    {
+        Grab := 1
+        Send {Click DownTemp}
+    }
 }
 
 global ReadyBinoculars := 0
@@ -50,9 +53,31 @@ DoReadyBinoculars()
     if(!ReadyBinoculars)
     {
         ReadyBinoculars := 1
-        SetKeyDelay -1
         if !GetKeyState("e")
             Send {e DownTemp}
+    }
+}
+
+global ReadyWeapon := 0
+
+UnreadyWeapon()
+{
+	global ReadyWeapon
+
+	ReadyWeapon := 0
+	Send {Click up right}
+}
+
+DoReadyWeapon()
+{
+    global ReadyWeapon
+
+    UnreadyBinoculars()
+
+    if(!ReadyWeapon)
+    {
+        ReadyWeapon := 1
+        Send {Click DownTemp right}
     }
 }
 
@@ -61,16 +86,9 @@ global MouseTurnAll
 MouseTurn(MouseTurnAll)
 return
 
-
 ~*NumpadDiv::
 SetKeyDelay -1
-global ReadyWeapon
-UnreadyBinoculars()
-if(!ReadyWeapon)
-{
-	ReadyWeapon := 1
-	Send {Click DownTemp right}
-}
+DoReadyWeapon()
 return
 
 ~*RButton up::
@@ -80,12 +98,7 @@ return
 
 ~*NumpadDot::
 SetKeyDelay -1
-global Grab
-if(!Grab)
-{
-	Grab := 1
-	Send {Click DownTemp}
-}
+DoGrab()
 return
 
 ~*LButton up::
@@ -126,21 +139,11 @@ if(duration>200)
 Send {e up}
 return
 
-; ~*Numpad7 up::
-; SetKeyDelay -1
-; global ReadyBinoculars
-; if !ReadyBinoculars
-;     Send {e up}
-; return
-
 Numpad8::w
 return
 
 Numpad9::q
 return
-
-; NumpadSub::g
-; return
 
 ~*NumpadEnter::
 SetKeyDelay -1
@@ -165,32 +168,6 @@ return
 
 ~*XButton1::Tab
 return
-
-; ~*PgDn::
-; SetKeyDelay -1
-; global ReadyBinoculars
-; global ReadyWeapon
-; sleep_var_pg_dn := 50
-; if(ReadyBinoculars)
-; {
-; 	Send {q DownTemp}
-; 	Sleep sleep_var_pg_dn
-; 	Send {q up}
-; }
-; if(!ReadyBinoculars && !ReadyWeapon)
-; {
-; 	ReadyBinoculars := 1
-; 	Send {f DownTemp}
-; 	return
-; }
-; if(ReadyWeapon)
-; {
-; 	UnreadyBinoculars()
-; 	Send {f DownTemp}
-; 	Sleep sleep_var_pg_dn
-; 	Send {f up}
-; }
-; return
 
 ~*PgUp::
 Send {r DownTemp}
@@ -224,17 +201,6 @@ return
 
 Insert::Tab
 return
-
-; ~*Delete::
-; SetKeyDelay -1
-; global ReadyWeapon
-; if(ReadyWeapon)
-; {
-; 	Send {x DownTemp}
-; 	return
-; }
-; Send {v DownTemp}
-; return
 
 ~*NumpadMult::
 SetKeyDelay -1
@@ -295,21 +261,21 @@ return
 Send {4 up}
 return
 
-;~*Down::
-;Send {2 DownTemp}
-;return
-;
-;~*Down up::
-;Send {2 up}
-;return
-;
-;~*Up::
-;Send {1 DownTemp}
-;return
-;
-;~*Up up::
-;Send {1 up}
-;return
+~*Down::
+Send {2 DownTemp}
+return
+
+~*Down up::
+Send {2 up}
+return
+
+~*Up::
+Send {1 DownTemp}
+return
+
+~*Up up::
+Send {1 up}
+return
 
 ~*MButton::
 Send {4 DownTemp}
@@ -317,6 +283,9 @@ return
 
 ~*MButton up::
 Send {4 up}
+return
+
+LCtrl::w
 return
 
 ~*WheelUp::
