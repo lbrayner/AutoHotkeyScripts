@@ -54,32 +54,32 @@ return
 ~*Numpad3::z
 return
 
-~*Numpad4::
+Numpad4::
 SetKeyDelay -1
 Send {a DownTemp}
 return
 
-~*Numpad4 up::
+Numpad4 up::
 SetKeyDelay -1
 Send {a up}
 return
 
-~*Numpad5::
+Numpad5::
 SetKeyDelay -1
 Send {a DownTemp}
 return
 
-~*Numpad5 up::
+Numpad5 up::
 SetKeyDelay -1
 Send {a up}
 return
 
-~*Numpad6::
+Numpad6::
 SetKeyDelay -1
 Send {d DownTemp}
 return
 
-~*Numpad6 up::
+Numpad6 up::
 SetKeyDelay -1
 Send {d up}
 return
@@ -87,12 +87,12 @@ return
 ~*Numpad7::e
 return
 
-~*Numpad8::
+Numpad8::
 SetKeyDelay -1
 Send {w DownTemp}
 return
 
-~*Numpad8 up::
+Numpad8 up::
 SetKeyDelay -1
 Send {w up}
 return
@@ -119,5 +119,9 @@ return
 ~Up::4
 return
 
-NumpadEnter::LShift
+NumpadEnter::
+SetKeyDelay -1
+Send {LShift DownTemp}
+keywait NumpadEnter
+Send {LShift up}
 return
