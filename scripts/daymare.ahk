@@ -1,5 +1,28 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
+#include Lib\AutoHotInterception.ahk
+
+;; interception code START
+
+AHI := new AutoHotInterception()
+
+keyboard1Id := AHI.GetKeyboardId(0x1A2C, 0x2D23)
+cm1 := AHI.CreateContextManager(keyboard1Id)
+
+#if cm1.IsActive	; Start the #if block
+1::
+SetKeyDelay -1
+Send {w DownTemp}
+return
+
+1 up::
+SetKeyDelay -1
+Send {w up}
+return
+#if			; Close
+
+;; interception code END
+
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
 
 global ReadyWeapon := 0
