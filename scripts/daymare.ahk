@@ -10,12 +10,42 @@ keyboard1Id := AHI.GetKeyboardId(0x1A2C, 0x2D23)
 cm1 := AHI.CreateContextManager(keyboard1Id)
 
 #if cm1.IsActive	; Start the #if block
-1::
+Numpad4::
+SetKeyDelay -1
+Send {a DownTemp}
+return
+
+Numpad4 up::
+SetKeyDelay -1
+Send {a up}
+return
+
+Numpad5::
+SetKeyDelay -1
+Send {s DownTemp}
+return
+
+Numpad5 up::
+SetKeyDelay -1
+Send {s up}
+return
+
+Numpad6::
+SetKeyDelay -1
+Send {d DownTemp}
+return
+
+Numpad6 up::
+SetKeyDelay -1
+Send {d up}
+return
+
+Numpad8::
 SetKeyDelay -1
 Send {w DownTemp}
 return
 
-1 up::
+Numpad8 up::
 SetKeyDelay -1
 Send {w up}
 return
@@ -77,47 +107,7 @@ return
 ~*Numpad3::z
 return
 
-Numpad4::
-SetKeyDelay -1
-Send {a DownTemp}
-return
-
-Numpad4 up::
-SetKeyDelay -1
-Send {a up}
-return
-
-Numpad5::
-SetKeyDelay -1
-Send {a DownTemp}
-return
-
-Numpad5 up::
-SetKeyDelay -1
-Send {a up}
-return
-
-Numpad6::
-SetKeyDelay -1
-Send {d DownTemp}
-return
-
-Numpad6 up::
-SetKeyDelay -1
-Send {d up}
-return
-
 ~*Numpad7::e
-return
-
-Numpad8::
-SetKeyDelay -1
-Send {w DownTemp}
-return
-
-Numpad8 up::
-SetKeyDelay -1
-Send {w up}
 return
 
 ~*Numpad9::q
