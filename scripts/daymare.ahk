@@ -231,7 +231,7 @@ UnShowStatus()
 Send {Space DownTemp}
 return
 
-~*Numpad0::
+~*Numpad0 up::
 SetKeyDelay -1
 Send {Space up}
 return
