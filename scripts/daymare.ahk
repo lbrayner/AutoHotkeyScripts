@@ -4,63 +4,63 @@
 
 ;; interception code START
 
-AHI := new AutoHotInterception()
+; AHI := new AutoHotInterception()
 
-keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
+; keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
 
-AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
+; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
 
-Numpad4Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad4 DownTemp}
-            return
-        }
-        Send {Numpad4 up}
-        return
-    }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Blind}{a DownTemp}
-            return
-        }
-        Send {Blind}{a up}
-        return
-    }
-}
+; Numpad4Event(state)
+; {
+;     SetKeyDelay -1
+;     if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+;     {
+;         if(state == 1)
+;         {
+;             Send {Numpad4 DownTemp}
+;             return
+;         }
+;         Send {Numpad4 up}
+;         return
+;     }
+;     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+;     {
+;         if(state == 1)
+;         {
+;             Send {Blind}{a DownTemp}
+;             return
+;         }
+;         Send {Blind}{a up}
+;         return
+;     }
+; }
 
-AHI.SubscribeKey(keyboardId, GetKeySC("Numpad6"), true, Func("Numpad6Event"))
+; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad6"), true, Func("Numpad6Event"))
 
-Numpad6Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad6 DownTemp}
-            return
-        }
-        Send {Numpad6 up}
-        return
-    }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Blind}{d DownTemp}
-            return
-        }
-        Send {Blind}{d up}
-        return
-    }
-}
+; Numpad6Event(state)
+; {
+;     SetKeyDelay -1
+;     if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+;     {
+;         if(state == 1)
+;         {
+;             Send {Numpad6 DownTemp}
+;             return
+;         }
+;         Send {Numpad6 up}
+;         return
+;     }
+;     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+;     {
+;         if(state == 1)
+;         {
+;             Send {Blind}{d DownTemp}
+;             return
+;         }
+;         Send {Blind}{d up}
+;         return
+;     }
+; }
 
 ;; interception code END
 
@@ -180,6 +180,26 @@ return
 ~*Numpad3::z
 return
 
+*SC04B::
+SetKeyDelay -1
+Send {Blind}{a DownTemp}
+return
+
+*SC04B up::
+SetKeyDelay -1
+Send {Blind}{a up}
+return
+
+*SC04D::
+SetKeyDelay -1
+Send {Blind}{d DownTemp}
+return
+
+*SC04D up::
+SetKeyDelay -1
+Send {Blind}{d up}
+return
+
 *Numpad5::
 SetKeyDelay -1
 Send {Blind}{s DownTemp}
@@ -190,12 +210,12 @@ SetKeyDelay -1
 Send {Blind}{s up}
 return
 
-*Numpad8::
+*SC048::
 SetKeyDelay -1
 Send {Blind}{w DownTemp}
 return
 
-*Numpad8 up::
+*SC048 up::
 SetKeyDelay -1
 Send {Blind}{w up}
 return
@@ -229,13 +249,6 @@ return
 SetKeyDelay -1
 Send {LShift DownTemp}
 keywait NumpadEnter
-if !GetKeyState("SC048","P")
-{
-    TrayTip No!, Numpad8 is not pressed.
-    Send {w up}
-}
-else
-    TrayTip Yes!, Numpad8 is pressed.
 Send {LShift up}
 return
 
