@@ -27,10 +27,10 @@ Numpad4Event(state)
     {
         if(state == 1)
         {
-            Send {a DownTemp}
+            Send {Blind}{a DownTemp}
             return
         }
-        Send {a up}
+        Send {Blind}{a up}
         return
     }
 }
@@ -54,10 +54,10 @@ Numpad6Event(state)
     {
         if(state == 1)
         {
-            Send {d DownTemp}
+            Send {Blind}{d DownTemp}
             return
         }
-        Send {d up}
+        Send {Blind}{d up}
         return
     }
 }
@@ -109,6 +109,28 @@ DoShowStatus()
         Send {MButton DownTemp}
 }
 
+ShouldRun := 0
+
+UnRun()
+{
+    global ShouldRun
+
+    ShouldRun := 0
+
+    if GetKeyState("LShift")
+        Send {Blind}{LShift up}
+}
+
+DoRun()
+{
+    global ShouldRun
+
+    ShouldRun := 1
+
+    if !GetKeyState("LShift")
+        Send {Blind}{LShift DownTemp}
+}
+
 
 ~*NumpadDiv::
 SetKeyDelay -1
@@ -124,6 +146,7 @@ return
 SetKeyDelay -1
 UnShowStatus()
 UnreadyWeapon()
+UnRun()
 Send {Esc DownTemp}
 keywait Home
 Send {Esc up}
@@ -157,21 +180,24 @@ return
 ~*Numpad3::z
 return
 
-Numpad5::
+*Numpad5::
 SetKeyDelay -1
-Send {s DownTemp}
+Send {Blind}{s DownTemp}
 return
 
-Numpad5 up::
+*Numpad5 up::
 SetKeyDelay -1
-Send {s up}
+Send {Blind}{s up}
 return
 
-Numpad8::
+*Numpad8::
 SetKeyDelay -1
-Send {w DownTemp}
-keywait Numpad8
-Send {w up}
+Send {Blind}{w DownTemp}
+return
+
+*Numpad8 up::
+SetKeyDelay -1
+Send {Blind}{w up}
 return
 
 ~*Numpad7::e
@@ -199,9 +225,29 @@ return
 ~Up::4
 return
 
-NumpadEnter::
+~*NumpadEnter::
 SetKeyDelay -1
 Send {LShift DownTemp}
 keywait NumpadEnter
+if !GetKeyState("SC048","P")
+{
+    TrayTip No!, Numpad8 is not pressed.
+    Send {w up}
+}
+else
+    TrayTip Yes!, Numpad8 is pressed.
 Send {LShift up}
 return
+
+        ; Loop
+        ; {
+        ;     ; if !GetKeyState("a") && !GetKeyState("s") &&
+        ;     ;     !GetKeyState("d") && !GetKeyState("w")
+        ;     if !GetKeyState("a")
+        ;     {
+        ;         UnRun()
+        ;         break
+        ;     }
+        ;     Sleep 500
+        ; }
+
