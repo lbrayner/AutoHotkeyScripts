@@ -19,10 +19,10 @@ Numpad8Event(state)
     {
         if(state == 1)
         {
-            Send {SC048 DownTemp}
+            Send {Numpad8 DownTemp}
             return
         }
-        Send {SC048 up}
+        Send {Numpad8 up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
@@ -66,63 +66,63 @@ Numpad4Event(state)
     }
 }
 
-; ;; Numpad5
+;; Numpad5
 
-; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad5"), true, Func("Numpad5Event"))
+AHI.SubscribeKey(keyboardId, GetKeySC("SC04C"), true, Func("Numpad5Event"))
 
-; Numpad5Event(state)
-; {
-;     SetKeyDelay -1
-;     if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-;     {
-;         if(state == 1)
-;         {
-;             Send {Numpad5 DownTemp}
-;             return
-;         }
-;         Send {Numpad5 up}
-;         return
-;     }
-;     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-;     {
-;         if(state == 1)
-;         {
-;             Send {Blind}{s DownTemp}
-;             return
-;         }
-;         Send {Blind}{s up}
-;         return
-;     }
-; }
+Numpad5Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {SC04C DownTemp}
+            return
+        }
+        Send {SC04C up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{s DownTemp}
+            return
+        }
+        Send {Blind}{s up}
+        return
+    }
+}
 
-; ;; Numpad6
+;; Numpad6
 
-; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad6"), true, Func("Numpad6Event"))
+AHI.SubscribeKey(keyboardId, GetKeySC("SC04D"), true, Func("Numpad6Event"))
 
-; Numpad6Event(state)
-; {
-;     SetKeyDelay -1
-;     if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-;     {
-;         if(state == 1)
-;         {
-;             Send {Numpad6 DownTemp}
-;             return
-;         }
-;         Send {Numpad6 up}
-;         return
-;     }
-;     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-;     {
-;         if(state == 1)
-;         {
-;             Send {Blind}{d DownTemp}
-;             return
-;         }
-;         Send {Blind}{d up}
-;         return
-;     }
-; }
+Numpad6Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {SC04D DownTemp}
+            return
+        }
+        Send {SC04D up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{d DownTemp}
+            return
+        }
+        Send {Blind}{d up}
+        return
+    }
+}
 
 ;; interception code END
 
@@ -253,25 +253,27 @@ return
 ; Send {Blind}{a up}
 ; return
 
-*SC04D::
-SetKeyDelay -1
-Send {Blind}{d DownTemp}
-return
+; ; Numpad6
+; *SC04D::
+; SetKeyDelay -1
+; Send {Blind}{d DownTemp}
+; return
 
-*SC04D up::
-SetKeyDelay -1
-Send {Blind}{d up}
-return
+; *SC04D up::
+; SetKeyDelay -1
+; Send {Blind}{d up}
+; return
 
-*Numpad5::
-SetKeyDelay -1
-Send {Blind}{s DownTemp}
-return
+; ; Numpad5
+; *SC04C::
+; SetKeyDelay -1
+; Send {Blind}{s DownTemp}
+; return
 
-*Numpad5 up::
-SetKeyDelay -1
-Send {Blind}{s up}
-return
+; *SC04C up::
+; SetKeyDelay -1
+; Send {Blind}{s up}
+; return
 
 ; ; Numpad8
 ; *SC048::
