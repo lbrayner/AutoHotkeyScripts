@@ -7,6 +7,7 @@
 AHI := new AutoHotInterception()
 
 keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
+
 AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
 
 Numpad4Event(state)
@@ -65,7 +66,7 @@ Numpad6Event(state)
 
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
 
-global ReadyWeapon := 0
+ReadyWeapon := 0
 
 UnreadyWeapon()
 {
@@ -86,6 +87,29 @@ DoReadyWeapon()
     }
 }
 
+ShowStatus := 0
+
+UnShowStatus()
+{
+    global ShowStatus
+
+    ShowStatus := 0
+
+    if GetKeyState("MButton")
+        Send {MButton up}
+}
+
+DoShowStatus()
+{
+    global ShowStatus
+
+    ShowStatus := 1
+
+    if !GetKeyState("MButton")
+        Send {MButton DownTemp}
+}
+
+
 ~*NumpadDiv::
 SetKeyDelay -1
 DoReadyWeapon()
@@ -96,16 +120,32 @@ SetKeyDelay -1
 UnreadyWeapon()
 return
 
-*Home::Esc
+*Home::
+SetKeyDelay -1
+UnShowStatus()
+UnreadyWeapon()
+Send {Esc DownTemp}
+keywait Home
+Send {Esc up}
 return
 
-~*XButton1::MButton
+~*XButton1::
+DoShowStatus()
+return
+
+~*XButton2::
+UnShowStatus()
 return
 
 ~*Insert::F3
 return
 
-~*Numpad0::Space
+~*Numpad0::
+SetKeyDelay -1
+UnShowStatus()
+Send {Space DownTemp}
+keywait Numpad0
+Send {Space up}
 return
 
 ~*Numpad1::Tab
@@ -132,6 +172,7 @@ SetKeyDelay -1
 Send {w DownTemp}
 keywait Numpad8
 Send {w up}
+return
 
 ~*Numpad7::e
 return
