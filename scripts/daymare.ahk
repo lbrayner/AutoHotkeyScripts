@@ -48,10 +48,10 @@ Numpad4Event(state)
     {
         if(state == 1)
         {
-            Send {SC04B DownTemp}
+            Send {Numpad4 DownTemp}
             return
         }
-        Send {SC04B up}
+        Send {Numpad4 up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
@@ -77,10 +77,10 @@ Numpad5Event(state)
     {
         if(state == 1)
         {
-            Send {SC04C DownTemp}
+            Send {Numpad5 DownTemp}
             return
         }
-        Send {SC04C up}
+        Send {Numpad5 up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
@@ -106,10 +106,10 @@ Numpad6Event(state)
     {
         if(state == 1)
         {
-            Send {SC04D DownTemp}
+            Send {Numpad6 DownTemp}
             return
         }
-        Send {SC04D up}
+        Send {Numpad6 up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
@@ -229,7 +229,10 @@ return
 SetKeyDelay -1
 UnShowStatus()
 Send {Space DownTemp}
-keywait Numpad0
+return
+
+~*Numpad0::
+SetKeyDelay -1
 Send {Space up}
 return
 
@@ -241,50 +244,6 @@ return
 
 ~*Numpad3::z
 return
-
-; ; Numpad4
-; *SC04B::
-; SetKeyDelay -1
-; Send {Blind}{a DownTemp}
-; return
-
-; *SC04B up::
-; SetKeyDelay -1
-; Send {Blind}{a up}
-; return
-
-; ; Numpad6
-; *SC04D::
-; SetKeyDelay -1
-; Send {Blind}{d DownTemp}
-; return
-
-; *SC04D up::
-; SetKeyDelay -1
-; Send {Blind}{d up}
-; return
-
-; ; Numpad5
-; *SC04C::
-; SetKeyDelay -1
-; Send {Blind}{s DownTemp}
-; return
-
-; *SC04C up::
-; SetKeyDelay -1
-; Send {Blind}{s up}
-; return
-
-; ; Numpad8
-; *SC048::
-; SetKeyDelay -1
-; Send {Blind}{w DownTemp}
-; return
-
-; *SC048 up::
-; SetKeyDelay -1
-; Send {Blind}{w up}
-; return
 
 ~*Numpad7::e
 return
