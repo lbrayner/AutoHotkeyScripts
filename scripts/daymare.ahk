@@ -10,7 +10,7 @@ keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
 
 ;; Numpad8
 
-AHI.SubscribeKey(keyboardId, GetKeySC("Numpad8"), true, Func("Numpad8Event"))
+AHI.SubscribeKey(keyboardId, GetKeySC("SC048"), true, Func("Numpad8Event"))
 
 Numpad8Event(state)
 {
@@ -19,10 +19,10 @@ Numpad8Event(state)
     {
         if(state == 1)
         {
-            Send {Numpad8 DownTemp}
+            Send {SC048 DownTemp}
             return
         }
-        Send {Numpad8 up}
+        Send {SC048 up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
@@ -39,7 +39,7 @@ Numpad8Event(state)
 
 ;; Numpad4
 
-AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
+AHI.SubscribeKey(keyboardId, GetKeySC("SC04B"), true, Func("Numpad4Event"))
 
 Numpad4Event(state)
 {
@@ -48,10 +48,10 @@ Numpad4Event(state)
     {
         if(state == 1)
         {
-            Send {Numpad4 DownTemp}
+            Send {SC04B DownTemp}
             return
         }
-        Send {Numpad4 up}
+        Send {SC04B up}
         return
     }
     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
