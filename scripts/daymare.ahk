@@ -4,36 +4,98 @@
 
 ;; interception code START
 
-; AHI := new AutoHotInterception()
+AHI := new AutoHotInterception()
 
-; keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
+keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
 
-; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
+;; Numpad8
 
-; Numpad4Event(state)
+AHI.SubscribeKey(keyboardId, GetKeySC("Numpad8"), true, Func("Numpad8Event"))
+
+Numpad8Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Numpad8 DownTemp}
+            return
+        }
+        Send {Numpad8 up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{w DownTemp}
+            return
+        }
+        Send {Blind}{w up}
+        return
+    }
+}
+
+;; Numpad4
+
+AHI.SubscribeKey(keyboardId, GetKeySC("Numpad4"), true, Func("Numpad4Event"))
+
+Numpad4Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Numpad4 DownTemp}
+            return
+        }
+        Send {Numpad4 up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{a DownTemp}
+            return
+        }
+        Send {Blind}{a up}
+        return
+    }
+}
+
+; ;; Numpad5
+
+; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad5"), true, Func("Numpad5Event"))
+
+; Numpad5Event(state)
 ; {
 ;     SetKeyDelay -1
 ;     if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
 ;     {
 ;         if(state == 1)
 ;         {
-;             Send {Numpad4 DownTemp}
+;             Send {Numpad5 DownTemp}
 ;             return
 ;         }
-;         Send {Numpad4 up}
+;         Send {Numpad5 up}
 ;         return
 ;     }
 ;     if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
 ;     {
 ;         if(state == 1)
 ;         {
-;             Send {Blind}{a DownTemp}
+;             Send {Blind}{s DownTemp}
 ;             return
 ;         }
-;         Send {Blind}{a up}
+;         Send {Blind}{s up}
 ;         return
 ;     }
 ; }
+
+; ;; Numpad6
 
 ; AHI.SubscribeKey(keyboardId, GetKeySC("Numpad6"), true, Func("Numpad6Event"))
 
@@ -180,15 +242,16 @@ return
 ~*Numpad3::z
 return
 
-*SC04B::
-SetKeyDelay -1
-Send {Blind}{a DownTemp}
-return
+; ; Numpad4
+; *SC04B::
+; SetKeyDelay -1
+; Send {Blind}{a DownTemp}
+; return
 
-*SC04B up::
-SetKeyDelay -1
-Send {Blind}{a up}
-return
+; *SC04B up::
+; SetKeyDelay -1
+; Send {Blind}{a up}
+; return
 
 *SC04D::
 SetKeyDelay -1
@@ -210,15 +273,16 @@ SetKeyDelay -1
 Send {Blind}{s up}
 return
 
-*SC048::
-SetKeyDelay -1
-Send {Blind}{w DownTemp}
-return
+; ; Numpad8
+; *SC048::
+; SetKeyDelay -1
+; Send {Blind}{w DownTemp}
+; return
 
-*SC048 up::
-SetKeyDelay -1
-Send {Blind}{w up}
-return
+; *SC048 up::
+; SetKeyDelay -1
+; Send {Blind}{w up}
+; return
 
 ~*Numpad7::e
 return
@@ -251,16 +315,3 @@ Send {LShift DownTemp}
 keywait NumpadEnter
 Send {LShift up}
 return
-
-        ; Loop
-        ; {
-        ;     ; if !GetKeyState("a") && !GetKeyState("s") &&
-        ;     ;     !GetKeyState("d") && !GetKeyState("w")
-        ;     if !GetKeyState("a")
-        ;     {
-        ;         UnRun()
-        ;         break
-        ;     }
-        ;     Sleep 500
-        ; }
-
