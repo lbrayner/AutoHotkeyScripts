@@ -193,6 +193,15 @@ DoRun()
         Send {Blind}{LShift DownTemp}
 }
 
+Loop
+{
+    if !GetKeyState("a") && !GetKeyState("s") &&
+        !GetKeyState("d") && !GetKeyState("w")
+        UnRun()
+
+    sleep 500
+}
+
 
 ~*NumpadDiv::
 SetKeyDelay -1
@@ -272,7 +281,6 @@ return
 
 ~*NumpadEnter::
 SetKeyDelay -1
-Send {LShift DownTemp}
-keywait NumpadEnter
-Send {LShift up}
+UnShowStatus()
+DoRun()
 return
