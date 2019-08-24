@@ -263,17 +263,6 @@ return
 ~*Insert::F3
 return
 
-; ~*Numpad0::
-; SetKeyDelay -1
-; UnShowStatus()
-; Send {Space DownTemp}
-; return
-
-; ~*Numpad0 up::
-; SetKeyDelay -1
-; Send {Space up}
-; return
-
 ~*NumpadDot::
 qte_var_sleep := 50
 qte_var := 1
