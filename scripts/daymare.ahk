@@ -124,6 +124,35 @@ Numpad6Event(state)
     }
 }
 
+;; Numpad0
+
+AHI.SubscribeKey(keyboardId, GetKeySC("SC052"), true, Func("Numpad0Event"))
+
+Numpad0Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Numpad0 DownTemp}
+            return
+        }
+        Send {Numpad0 up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{Space DownTemp}
+            return
+        }
+        Send {Blind}{Space up}
+        return
+    }
+}
+
 ;; interception code END
 
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
@@ -179,8 +208,8 @@ UnRun()
 
     ShouldRun := 0
 
-    if GetKeyState("LShift")
-        Send {Blind}{LShift up}
+    if GetKeyState("SC02A")
+        Send {SC02A up}
 }
 
 DoRun()
@@ -189,8 +218,8 @@ DoRun()
 
     ShouldRun := 1
 
-    if !GetKeyState("LShift")
-        Send {Blind}{LShift DownTemp}
+    if !GetKeyState("SC02A")
+        Send {SC02A DownTemp}
 }
 
 Loop
@@ -234,15 +263,31 @@ return
 ~*Insert::F3
 return
 
-~*Numpad0::
-SetKeyDelay -1
-UnShowStatus()
-Send {Space DownTemp}
+; ~*Numpad0::
+; SetKeyDelay -1
+; UnShowStatus()
+; Send {Space DownTemp}
+; return
+
+; ~*Numpad0 up::
+; SetKeyDelay -1
+; Send {Space up}
+; return
+
+~*NumpadDot::
+qte_var_sleep := 50
+qte_var := 1
+while(qte_var)
+{
+    Send {Blind}{Space DownTemp}
+    sleep qte_var_sleep
+    Send {Blind}{Space up}
+}
 return
 
-~*Numpad0 up::
+~*NumpadDot up::
 SetKeyDelay -1
-Send {Space up}
+qte_var := 0
 return
 
 ~*Numpad1::Tab
@@ -254,13 +299,37 @@ return
 ~*Numpad3::z
 return
 
-~*Numpad7::e
+; Numpad7
+*SC047::
+SetKeyDelay -1
+Send {Blind}{e DownTemp}
 return
 
-~*Numpad9::q
+*SC047 up::
+SetKeyDelay -1
+Send {Blind}{e up}
 return
 
-~*PgDn::f
+; Numpad9
+*SC049::
+SetKeyDelay -1
+Send {Blind}{q DownTemp}
+return
+
+*SC049 up::
+SetKeyDelay -1
+Send {Blind}{q up}
+return
+
+*PgDn::
+SetKeyDelay -1
+UnRun()
+Send {Blind}{f DownTemp}
+return
+
+*PgDn up::
+SetKeyDelay -1
+Send {Blind}{f up}
 return
 
 ~*PgUp::r
@@ -281,6 +350,7 @@ return
 
 ~*NumpadEnter::
 SetKeyDelay -1
+UnreadyWeapon()
 UnShowStatus()
 DoRun()
 return
