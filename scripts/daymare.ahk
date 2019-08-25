@@ -153,6 +153,35 @@ Numpad0Event(state)
     }
 }
 
+;; Numpad2
+
+AHI.SubscribeKey(keyboardId, GetKeySC("SC050"), true, Func("Numpad2Event"))
+
+Numpad2Event(state)
+{
+    SetKeyDelay -1
+    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Numpad2 DownTemp}
+            return
+        }
+        Send {Numpad2 up}
+        return
+    }
+    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    {
+        if(state == 1)
+        {
+            Send {Blind}{x DownTemp}
+            return
+        }
+        Send {Blind}{x up}
+        return
+    }
+}
+
 ;; interception code END
 
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
@@ -280,9 +309,6 @@ qte_var := 0
 return
 
 ~*Numpad1::Tab
-return
-
-~*Numpad2::x
 return
 
 ~*Numpad3::z
