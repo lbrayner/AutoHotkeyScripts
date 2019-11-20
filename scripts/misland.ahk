@@ -12,7 +12,7 @@ return
 PgUp::MButton
 return
 
-PgDn::MButton
+Numpad1::MButton
 return
 
 *~XButton1::MButton
@@ -28,12 +28,12 @@ SetKeyDelay -1
 Send {Blind}{Click up}{Click up right}
 return
 
-*Numpad7::
+*PgDn::
 SetKeyDelay -1
 Send {Blind}{Click DownTemp}
 return
 
-*Numpad7 up::
+*PgDn up::
 SetKeyDelay -1
 Send {Blind}{Click up}
 return
@@ -44,6 +44,16 @@ Send {Blind}{Click DownTemp right}
 return
 
 *Numpad9 up::
+SetKeyDelay -1
+Send {Blind}{Click up right}
+return
+
+*Numpad7::
+SetKeyDelay -1
+Send {Blind}{Click DownTemp right}
+return
+
+*Numpad7 up::
 SetKeyDelay -1
 Send {Blind}{Click up right}
 return
