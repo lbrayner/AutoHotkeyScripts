@@ -24,23 +24,26 @@ MouseWheelEvent(state)
     }
     if WinActive("ahk_exe FarCry4.exe")
     {
+        change_weapon_sleep := 50
         if(state == 1) ; UP
         {
-            if GetKeyState("z")
+            if GetKeyState("z") || GetKeyState("RButton")
             {
                 Send {WheelUp 1}
                 return
             }
             Send {2 DownTemp}
+            Sleep change_weapon_sleep
             Send {2 up}
             return
         }
-        if GetKeyState("z")
+        if GetKeyState("z") || GetKeyState("RButton")
         {
             Send {WheelDown 1}
             return
         }
         Send {1 DownTemp}
+        Sleep change_weapon_sleep
         Send {1 up}
     }
 
@@ -132,6 +135,7 @@ if(duration>200)
     return
 }
 UnEquipCamera()
+Sleep 100
 Send {z DownTemp}
 Send {z up}
 return
@@ -196,14 +200,20 @@ SetKeyDelay -1
 Send {f up}
 return
 
+; LCtrl
 ~*PgUp::
 SetKeyDelay -1
 UnreadyWeapon()
-Send {r DownTemp}{LCtrl DownTemp}
+Send {r DownTemp}
+Send {SC01D DownTemp}
 return
 
 ~*PgUp up::
-Send {r up}{LCtrl up}
+Send {r up}
+Send {SC01D up}
+return
+
+*~End::v
 return
 
 ; ~*PgUp::
