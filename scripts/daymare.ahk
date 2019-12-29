@@ -45,6 +45,15 @@ DoShowStatus()
         Send {MButton DownTemp}
 }
 
+ShowStatus()
+{
+    global ShowStatus
+    if ShowStatus
+        UnShowStatus()
+    else
+        DoShowStatus()
+}
+
 ShouldRun := 0
 
 UnRun()
@@ -99,11 +108,10 @@ Send {Esc up}
 return
 
 ~*XButton1::
-DoShowStatus()
+ShowStatus()
 return
 
-~*XButton2::
-UnShowStatus()
+~*XButton2::4
 return
 
 ~*Insert::F3
@@ -174,9 +182,6 @@ return
 ~*WheelDown::
 Send {2 DownTemp}
 Send {2 up}
-return
-
-~Up::4
 return
 
 ~*NumpadEnter::
