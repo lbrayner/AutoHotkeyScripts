@@ -25,16 +25,13 @@ Numpad8Event(state)
         Send {Numpad8 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{w DownTemp}
-            return
-        }
-        Send {Blind}{w up}
+        Send {Blind}{w DownTemp}
         return
     }
+    Send {Blind}{w up}
+    return
 }
 
 ;; Numpad4
@@ -54,16 +51,13 @@ Numpad4Event(state)
         Send {Numpad4 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{a DownTemp}
-            return
-        }
-        Send {Blind}{a up}
+        Send {Blind}{a DownTemp}
         return
     }
+    Send {Blind}{a up}
+    return
 }
 
 ;; Numpad5
@@ -83,16 +77,13 @@ Numpad5Event(state)
         Send {Numpad5 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{s DownTemp}
-            return
-        }
-        Send {Blind}{s up}
+        Send {Blind}{s DownTemp}
         return
     }
+    Send {Blind}{s up}
+    return
 }
 
 ;; Numpad6
@@ -112,16 +103,13 @@ Numpad6Event(state)
         Send {Numpad6 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{d DownTemp}
-            return
-        }
-        Send {Blind}{d up}
+        Send {Blind}{d DownTemp}
         return
     }
+    Send {Blind}{d up}
+    return
 }
 
 ;; Numpad0
@@ -141,16 +129,13 @@ Numpad0Event(state)
         Send {Numpad0 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{Space DownTemp}
-            return
-        }
-        Send {Blind}{Space up}
+        Send {Blind}{Space DownTemp}
         return
     }
+    Send {Blind}{Space up}
+    return
 }
 
 ;; Numpad2
@@ -170,16 +155,13 @@ Numpad2Event(state)
         Send {Numpad2 up}
         return
     }
-    if WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
+    if(state == 1)
     {
-        if(state == 1)
-        {
-            Send {Blind}{x DownTemp}
-            return
-        }
-        Send {Blind}{x up}
+        Send {Blind}{x DownTemp}
         return
     }
+    Send {Blind}{x up}
+    return
 }
 
 ;; interception code END
