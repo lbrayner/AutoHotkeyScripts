@@ -1,171 +1,5 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
-#include Lib\AutoHotInterception.ahk
-
-;; interception code START
-
-AHI := new AutoHotInterception()
-
-keyboardId := AHI.GetKeyboardId(0x1A2C, 0x2D23)
-
-;; Numpad8
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC048"), true, Func("Numpad8Event"))
-
-Numpad8Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad8 DownTemp}
-            return
-        }
-        Send {Numpad8 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{w DownTemp}
-        return
-    }
-    Send {Blind}{w up}
-    return
-}
-
-;; Numpad4
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC04B"), true, Func("Numpad4Event"))
-
-Numpad4Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad4 DownTemp}
-            return
-        }
-        Send {Numpad4 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{a DownTemp}
-        return
-    }
-    Send {Blind}{a up}
-    return
-}
-
-;; Numpad5
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC04C"), true, Func("Numpad5Event"))
-
-Numpad5Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad5 DownTemp}
-            return
-        }
-        Send {Numpad5 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{s DownTemp}
-        return
-    }
-    Send {Blind}{s up}
-    return
-}
-
-;; Numpad6
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC04D"), true, Func("Numpad6Event"))
-
-Numpad6Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad6 DownTemp}
-            return
-        }
-        Send {Numpad6 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{d DownTemp}
-        return
-    }
-    Send {Blind}{d up}
-    return
-}
-
-;; Numpad0
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC052"), true, Func("Numpad0Event"))
-
-Numpad0Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad0 DownTemp}
-            return
-        }
-        Send {Numpad0 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{Space DownTemp}
-        return
-    }
-    Send {Blind}{Space up}
-    return
-}
-
-;; Numpad2
-
-AHI.SubscribeKey(keyboardId, GetKeySC("SC050"), true, Func("Numpad2Event"))
-
-Numpad2Event(state)
-{
-    SetKeyDelay -1
-    if !WinActive("ahk_exe Daymare_MASTER-Win64-Shipping.exe")
-    {
-        if(state == 1)
-        {
-            Send {Numpad2 DownTemp}
-            return
-        }
-        Send {Numpad2 up}
-        return
-    }
-    if(state == 1)
-    {
-        Send {Blind}{x DownTemp}
-        return
-    }
-    Send {Blind}{x up}
-    return
-}
-
-;; interception code END
-
 #IfWinActive, ahk_exe Daymare_MASTER-Win64-Shipping.exe
 
 ReadyWeapon := 0
@@ -219,8 +53,8 @@ UnRun()
 
     ShouldRun := 0
 
-    if GetKeyState("SC02A")
-        Send {SC02A up}
+    if GetKeyState("SC01D")
+        Send {SC01D up}
 }
 
 DoRun()
@@ -229,8 +63,9 @@ DoRun()
 
     ShouldRun := 1
 
-    if !GetKeyState("SC02A")
-        Send {SC02A DownTemp}
+    if GetKeyState("w")
+        if !GetKeyState("SC01D")
+            Send {SC01D DownTemp}
 }
 
 Loop
@@ -350,4 +185,54 @@ SetKeyDelay -1
 UnreadyWeapon()
 UnShowStatus()
 DoRun()
+return
+
+~*Numpad2::x
+return
+
+~*Numpad0::Space
+return
+
+; Movement
+; Movement
+; Movement
+
+~*Numpad8::
+SetKeyDelay -1
+Send {Blind}{w DownTemp}
+return
+
+~*Numpad8 up::
+SetKeyDelay -1
+Send {Blind}{w up}
+return
+
+~*Numpad4::
+SetKeyDelay -1
+Send {Blind}{a DownTemp}
+return
+
+~*Numpad4 up::
+SetKeyDelay -1
+Send {Blind}{a up}
+return
+
+~*Numpad5::
+SetKeyDelay -1
+Send {Blind}{s DownTemp}
+return
+
+~*Numpad5 up::
+SetKeyDelay -1
+Send {Blind}{s up}
+return
+
+~*Numpad6::
+SetKeyDelay -1
+Send {Blind}{d DownTemp}
+return
+
+~*Numpad6 up::
+SetKeyDelay -1
+Send {Blind}{d up}
 return
