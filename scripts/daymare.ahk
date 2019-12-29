@@ -131,24 +131,23 @@ return
 ~*Numpad3::z
 return
 
-; Numpad7
-*SC047::
+*Numpad7::
 SetKeyDelay -1
 Send {Blind}{e DownTemp}
 return
 
-*SC047 up::
+*Numpad7 up::
 SetKeyDelay -1
 Send {Blind}{e up}
 return
 
 ; Numpad9
-*SC049::
+*Numpad9::
 SetKeyDelay -1
 Send {Blind}{q DownTemp}
 return
 
-*SC049 up::
+*Numpad9 up::
 SetKeyDelay -1
 Send {Blind}{q up}
 return
@@ -197,42 +196,11 @@ return
 ; Movement
 ; Movement
 
-~*Numpad8::
-SetKeyDelay -1
-Send {Blind}{w DownTemp}
+~*Numpad8::w
 return
-
-~*Numpad8 up::
-SetKeyDelay -1
-Send {Blind}{w up}
+~*Numpad4::a
 return
-
-~*Numpad4::
-SetKeyDelay -1
-Send {Blind}{a DownTemp}
+~*Numpad5::s
 return
-
-~*Numpad4 up::
-SetKeyDelay -1
-Send {Blind}{a up}
-return
-
-~*Numpad5::
-SetKeyDelay -1
-Send {Blind}{s DownTemp}
-return
-
-~*Numpad5 up::
-SetKeyDelay -1
-Send {Blind}{s up}
-return
-
-~*Numpad6::
-SetKeyDelay -1
-Send {Blind}{d DownTemp}
-return
-
-~*Numpad6 up::
-SetKeyDelay -1
-Send {Blind}{d up}
+~*Numpad6::d
 return
