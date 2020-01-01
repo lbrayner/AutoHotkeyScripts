@@ -2,18 +2,6 @@
 #MaxHotkeysPerInterval 200  ;example from Help file
 #IfWinActive, ahk_exe APlagueTaleInnocence_x64.exe
 
-CoordMode, Mouse, Screen
-
-MoveCursor(x,y)
-{
-    DllCall("SetCursorPos", int, x, int, y)
-}
-
-MouseMoveX(x)
-{
-	MouseMove x,0,2, R
-}
-
 ReadySling := 0
 
 UnReadySling()
@@ -56,6 +44,39 @@ DoReadyThrow()
     }
 }
 
+ShouldRun := 0
+
+UnRun()
+{
+    global ShouldRun
+
+    ShouldRun := 0
+
+    if GetKeyState("SC01D")
+        Send {SC01D up}
+}
+
+DoRun()
+{
+    global ShouldRun
+
+    ShouldRun := 1
+
+    if GetKeyState("w") || GetKeyState("a") ||
+        GetKeyState("s") || GetKeyState("d")
+        if !GetKeyState("SC01D")
+            Send {SC01D DownTemp}
+}
+
+Loop
+{
+    if !GetKeyState("a") && !GetKeyState("s") &&
+        !GetKeyState("d") && !GetKeyState("w")
+        UnRun()
+
+    sleep 500
+}
+
 ~*NumpadDiv::
 SetKeyDelay -1
 DoReadySling()
@@ -72,14 +93,11 @@ SetKeyDelay -1
 DoReadyThrow()
 return
 
-~*Numpad2::
-MouseMoveX(240)
-return
-
 *Home::
 SetKeyDelay -1
 UnReadySling()
 UnReadyThrow()
+UnRun()
 Send {Esc DownTemp}
 keywait Home
 Send {Esc up}
@@ -112,7 +130,14 @@ SetKeyDelay -1
 Send {Blind}{q up}
 return
 
-~*NumpadEnter::LCtrl
+~*NumpadEnter::
+SetKeyDelay -1
+UnReadySling()
+UnReadyThrow()
+DoRun()
+return
+
+~*Insert::Tab
 return
 
 ; Movement
