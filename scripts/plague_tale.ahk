@@ -2,6 +2,18 @@
 #MaxHotkeysPerInterval 200  ;example from Help file
 #IfWinActive, ahk_exe APlagueTaleInnocence_x64.exe
 
+CoordMode, Mouse, Screen
+
+MoveCursor(x,y)
+{
+    DllCall("SetCursorPos", int, x, int, y)
+}
+
+MouseMoveX(x)
+{
+	MouseMove x,0,5, R
+}
+
 ReadySling := 0
 
 UnReadySling()
@@ -91,6 +103,10 @@ return
 *Numpad7::
 SetKeyDelay -1
 DoReadyThrow()
+return
+
+Numpad2::
+MouseMoveX(170)
 return
 
 *Home::
