@@ -21,7 +21,8 @@ UnReadySling()
 	global ReadySling
 
 	ReadySling := 0
-	Send {Click up right}
+    if GetKeyState("RButton")
+        Send {Click up right}
 }
 
 DoReadySling()
@@ -42,7 +43,8 @@ UnReadyThrow()
 	global ReadyThrow
 
 	ReadyThrow := 0
-	Send {e up}
+    if GetKeyState("e")
+        Send {e up}
 }
 
 DoReadyThrow()
@@ -122,7 +124,14 @@ return
 ~*PgUp::r
 return
 
-~*PgDn::f
+~*PgDn::
+SetKeyDelay -1
+Send {f DownTemp}{Return DownTemp}
+return
+
+~*PgDn up::
+SetKeyDelay -1
+Send {f up}{Return up}
 return
 
 ~*Numpad0::Space
@@ -139,10 +148,7 @@ SetKeyDelay -1
 UnReadySling()
 UnReadyThrow()
 Send {Blind}{q DownTemp}
-return
-
-~*Numpad9 up::
-SetKeyDelay -1
+keywait Numpad9
 Send {Blind}{q up}
 return
 
@@ -167,4 +173,24 @@ return
 ~*Numpad5::s
 return
 ~*Numpad6::d
+return
+
+; qte
+; qte
+; qte
+
+~*NumpadDot::
+qte_var_sleep := 50
+qte_var := 1
+while(qte_var)
+{
+    Send {Blind}{f DownTemp}
+    sleep qte_var_sleep
+    Send {Blind}{f up}
+}
+return
+
+~*NumpadDot up::
+SetKeyDelay -1
+qte_var := 0
 return
