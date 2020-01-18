@@ -1,130 +1,145 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
 
-#IfWinActive, RESIDENT EVIL 5
+#IfWinActive, ahk_exe re5dx9.exe
 
-global next := 0
+; Weapon
+; Weapon
+; Weapon
 
-global ReadyWeapon := 0
-global Forwards := 0
-global Strafing := 0
-
-UnreadyWeapon()
+UnReadyWeapon()
 {
-	global ReadyWeapon
-		
-	ReadyWeapon := 0
-	Send {Click up right}
+    if GetKeyState("RButton")
+        Send {Click up right}
+}
+
+DoReadyWeapon()
+{
+    if !GetKeyState("RButton")
+        Send {Click DownTemp right}
+}
+
+IsWeaponReady()
+{
+    return GetKeyState("RButton")
+}
+
+; Run
+; Run
+; Run
+
+IsRunning()
+{
+    return GetKeyState("SC01D")
 }
 
 UnRun()
 {
-	Send {Space up}
+    if GetKeyState("Space")
+        Send {Space up}
 }
 
-Run()
+DoRun()
 {
-	Send {Space DownTemp}
+    if !GetKeyState("Space")
+        Send {Space DownTemp}
 }
 
-End::ExitApp
+IsStrafing()
+{
+    return GetKeyState("a") || GetKeyState("d")
+}
+
+~*NumpadDiv::
+SetKeyDelay -1
+DoReadyWeapon()
 return
 
 ~*RButton up::
 SetKeyDelay -1
-UnreadyWeapon()
-return
-
-*~NumpadDiv::
-SetKeyDelay -1
-global ReadyWeapon
-if(!ReadyWeapon)
-{	
-	ReadyWeapon := 1
-	UnRun()
-	Send {Click DownTemp right}
-}
+UnReadyWeapon()
 return
 
 ~*Numpad8::
 SetKeyDelay -1
-global Forwards
-global Strafing
-UnreadyWeapon()
-; strafing := GetKeyState("Numpad4",P) | GetKeyState("Numpad6",P)
-if(!Strafing)
-{
-	Run()
-}
-
-Forwards := 1
+UnReadyWeapon()
+if !IsStrafing()
+    DoRun()
+Send {w DownTemp}
 return
 
 ~*Numpad8 up::
 SetKeyDelay -1
-global Forwards
-Forwards := 0
 UnRun()
+Send {w up}
 return
 
 ~*Numpad4::
 SetKeyDelay -1
-global Strafing
-Strafing := 1
-UnreadyWeapon()
+UnReadyWeapon()
 UnRun()
-return
-
-~*Numpad4 up::
-SetKeyDelay -1
-global Strafing
-global Forwards
-if(Forwards)
-	Run()
-Strafing := 0
+Send {a DownTemp}
+keywait Numpad4
+Send {a up}
 return
 
 ~*Numpad5::
 SetKeyDelay -1
-UnreadyWeapon()
+UnReadyWeapon()
+UnRun()
+Send {s DownTemp}
+keywait Numpad5
+Send {s up}
 return
-
 
 ~*Numpad6::
 SetKeyDelay -1
-global Strafing
-Strafing := 1
-UnreadyWeapon()
+UnReadyWeapon()
 UnRun()
+Send {d DownTemp}
+keywait Numpad6
+Send {d up}
 return
 
-~*Numpad6 up::
-SetKeyDelay -1
-global Strafing
-global Forwards
-if(Forwards)
-	Run()
-Strafing := 0
+~*Numpad0::Space
 return
 
-~*Numpad0::
-SetKeyDelay -1
-UnreadyWeapon()
+~*Numpad9::q
 return
 
-
-
-*Numpad2::
-SetKeyDelay -1
-UnreadyWeapon()
-Send {Blind}{x DownTemp}{Space DownTemp}
+~*Numpad7::e
 return
 
-*Numpad2 up::
-SetKeyDelay -1
-Send {Blind}{x up}{Space up}
+~*Numpad1::c
 return
 
+~*Numpad3::z
+return
+
+~*Numpad2::x
+return
+
+*Home::
+SetKeyDelay -1
+UnReadyWeapon()
+Send {Esc DownTemp}
+keywait Home
+Send {Esc up}
+return
+
+; Wesker
+
+; *Numpad2::
+; SetKeyDelay -1
+; UnreadyWeapon()
+; Send {x DownTemp}{Space DownTemp}
+; return
+
+; *Numpad2 up::
+; SetKeyDelay -1
+; Send {x up}{Space up}
+; return
+
 ;******************************QTE***************************
 ;******************************QTE***************************
 ;******************************QTE***************************
@@ -140,21 +155,21 @@ return
 ;******************************QTE***************************
 ;******************************QTE***************************
 
-*Numpad7::
+*PgDn::
 SetKeyDelay -1
-var := true
-sleep_var := 100
-while(var)
-{	
-	Send {Blind}{Numpad7 DownTemp}
-	Sleep sleep_var
-	Send {Blind}{Numpad7 up}
-	Sleep sleep_var
+pgdn_var := true
+pgdn_sleep_var := 50
+while(pgdn_var)
+{
+	Send {f DownTemp}
+	Sleep pgdn_sleep_var
+	Send {f up}
+	Sleep pgdn_sleep_var
 }
 return
 
-*Numpad7 up::
-var := false
+*PgDn up::
+pgdn_var := false
 return
 
 *Delete::
@@ -162,10 +177,10 @@ SetKeyDelay -1
 var := true
 sleep_var := 100
 while(var)
-{	
-	Send {Blind}{Delete DownTemp}
+{
+	Send {Delete DownTemp}
 	Sleep sleep_var
-	Send {Blind}{Delete up}
+	Send {Delete up}
 	Sleep sleep_var
 }
 return
@@ -174,28 +189,28 @@ return
 var := false
 return
 
-*Numpad1::
-SetKeyDelay -1
-Send {Blind}{Numpad7 DownTemp}{Del DownTemp}
-Send {Blind}{Numpad4 DownTemp}{Numpad6 DownTemp}
-return
+; *Numpad1::
+; SetKeyDelay -1
+; Send {Numpad7 DownTemp}{Del DownTemp}
+; Send {Numpad4 DownTemp}{Numpad6 DownTemp}
+; return
 
-*Numpad1 up::
-Send {Blind}{Numpad7 up}{Del up}
-Send {Blind}{Numpad4 up}{Numpad6 up}
-return
+; *Numpad1 up::
+; Send {Numpad7 up}{Del up}
+; Send {Numpad4 up}{Numpad6 up}
+; return
 
 *NumpadDot::
 SetKeyDelay -1
 var := true
 sleep_var := 1
 while(var)
-{	
-	Send {Blind}{Numpad4 DownTemp}
-	Sleep sleep_var	
-	Send {Blind}{Numpad6 DownTemp}{Numpad4 up}
+{
+	Send {a DownTemp}
 	Sleep sleep_var
-	Send {Blind}{Numpad6 up}
+	Send {d DownTemp}{a up}
+	Sleep sleep_var
+	Send {d up}
 }
 return
 
@@ -226,19 +241,19 @@ speed := 10
 
 ;MouseMove, 0, 0, speed
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Left DownTemp}
+Send {PgDn up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{z DownTemp}
+Send {Left up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{Up DownTemp}
+Send {z up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{z DownTemp}
+Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{PgDn DownTemp}
+Send {z up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 
 return
 
@@ -250,17 +265,17 @@ speed := 10
 
 ;MouseMove, 0, 0, speed
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{z DownTemp}
+Send {PgDn up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{Up DownTemp}
+Send {z up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{z DownTemp}
+Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{PgDn DownTemp}
+Send {z up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 
 return
 
@@ -272,19 +287,19 @@ speed := 1
 
 
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Right DownTemp}
+Send {PgDn up}{Right DownTemp}
 Sleep sleep_var
-Send {Blind}{Right up}{z DownTemp}
+Send {Right up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{Up DownTemp}
+Send {z up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{z DownTemp}
+Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {Blind}{z up}{PgDn DownTemp}
+Send {z up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 return
 
 ;******************************DISCARD***************************
@@ -301,23 +316,23 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Right DownTemp}
+Send {PgDn up}{Right DownTemp}
 Sleep sleep_var
-Send {Blind}{Right up}{Return DownTemp}
+Send {Right up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Up DownTemp}
+Send {Return up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{Return DownTemp}
+Send {Up up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Left DownTemp}
+Send {Return up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{Return DownTemp}
+Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{PgDn DownTemp}
+Send {Return up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 
 return
 
@@ -326,23 +341,23 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Left DownTemp}
+Send {PgDn up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{Down DownTemp}
+Send {Left up}{Down DownTemp}
 Sleep sleep_var
-Send {Blind}{Down up}{Return DownTemp}
+Send {Down up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Up DownTemp}
+Send {Return up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{Return DownTemp}
+Send {Up up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Left DownTemp}
+Send {Return up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{Return DownTemp}
+Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}
+Send {Return up}
 
 return
 
@@ -351,23 +366,23 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Down DownTemp}
+Send {PgDn up}{Down DownTemp}
 Sleep sleep_var
-Send {Blind}{Down up}{Return DownTemp}
+Send {Down up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Up DownTemp}
+Send {Return up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{Return DownTemp}
+Send {Up up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Left DownTemp}
+Send {Return up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{Return DownTemp}
+Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{PgDn DownTemp}
+Send {Return up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 
 return
 
@@ -376,25 +391,25 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {Blind}{PgDn DownTemp}
+Send {PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}{Right DownTemp}
+Send {PgDn up}{Right DownTemp}
 Sleep sleep_var
-Send {Blind}{Right up}{Down DownTemp}
+Send {Right up}{Down DownTemp}
 Sleep sleep_var
-Send {Blind}{Down up}{Return DownTemp}
+Send {Down up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Up DownTemp}
+Send {Return up}{Up DownTemp}
 Sleep sleep_var
-Send {Blind}{Up up}{Return DownTemp}
+Send {Up up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{Left DownTemp}
+Send {Return up}{Left DownTemp}
 Sleep sleep_var
-Send {Blind}{Left up}{Return DownTemp}
+Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Blind}{Return up}{PgDn DownTemp}
+Send {Return up}{PgDn DownTemp}
 Sleep sleep_var
-Send {Blind}{PgDn up}
+Send {PgDn up}
 
 return
 
@@ -412,31 +427,16 @@ return
 ;******************************SWAP-WEAPONS***************************
 ;******************************SWAP-WEAPONS***************************
 ;******************************SWAP-WEAPONS***************************
-
-*Right::
-SetKeyDelay -1
-Send {Blind}{1 DownTemp}{Right DownTemp}
-return
-
-*Right up::
-Send {Blind}{1 up}{Right up}
-return
-
-
 
 *WheelUp::
-SetKeyDelay -1
-sleep_var := 100
-Send {Blind}{3 DownTemp}
-Sleep sleep_var
-Send {Blind}{3 up}
+Send {3 DownTemp}
+Send {3 up}
 return
 
 *WheelDown::
-SetKeyDelay -1
-sleep_var := 100
-Send {Blind}{2 DownTemp}
-Sleep sleep_var
-Send {Blind}{2 up}
+Send {2 DownTemp}
+Send {2 up}
 return
 
+~*XButton1::1
+return
