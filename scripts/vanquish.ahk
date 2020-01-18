@@ -22,16 +22,43 @@ DoReadyWeapon()
 {
     global ReadyWeapon
 
-    if(!ReadyWeapon)
+    if !GetKeyState("RButton")
     {
         ReadyWeapon := 1
         Send {Click DownTemp right}
     }
 }
 
+ShouldBoost := 0
+
+UnBoost()
+{
+    global ShouldBoost
+
+    ShouldBoost := 0
+
+    if GetKeyState("SC01D")
+        Send {SC01D up}
+}
+
+DoBoost()
+{
+    global ShouldBoost
+
+    ShouldBoost := 1
+
+    if !GetKeyState("SC01D")
+        Send {SC01D DownTemp}
+}
+
 ~*NumpadDiv::
 SetKeyDelay -1
+UnBoost()
 DoReadyWeapon()
+return
+
+~*RButton::
+UnBoost()
 return
 
 ~*RButton up::
@@ -39,12 +66,28 @@ SetKeyDelay -1
 UnReadyWeapon()
 return
 
+~*NumpadEnter::
+SetKeyDelay -1
+DoBoost()
+return
+
+~*Numpad0::
+SetKeyDelay -1
+UnBoost()
+return
+
+~*Numpad7::
+SetKeyDelay -1
+UnBoost()
+return
+
 ~*Numpad2::
-MouseEventMoveX(2950)
+MouseEventMoveX(3500)
 return
 
 *Home::
 SetKeyDelay -1
+UnBoost()
 UnReadyWeapon()
 Send {Esc DownTemp}
 keywait Home
