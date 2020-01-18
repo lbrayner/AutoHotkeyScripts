@@ -4,7 +4,7 @@
 
 ReadyWeapon := 0
 
-UnreadyWeapon()
+UnReadyWeapon()
 {
 	global ReadyWeapon
 
@@ -72,7 +72,8 @@ DoRun()
 
     ShouldRun := 1
 
-    if GetKeyState("w")
+    if GetKeyState("w") || GetKeyState("a") ||
+        GetKeyState("s") || GetKeyState("d")
         if !GetKeyState("SC01D")
             Send {SC01D DownTemp}
 }
@@ -94,13 +95,13 @@ return
 
 ~*RButton up::
 SetKeyDelay -1
-UnreadyWeapon()
+UnReadyWeapon()
 return
 
 *Home::
 SetKeyDelay -1
 UnShowStatus()
-UnreadyWeapon()
+UnReadyWeapon()
 UnRun()
 Send {Esc DownTemp}
 keywait Home
@@ -111,7 +112,10 @@ return
 ShowStatus()
 return
 
-~*XButton2::4
+XButton2::4
+return
+
+Right::3
 return
 
 ~*Insert::F3
@@ -186,7 +190,7 @@ return
 
 ~*NumpadEnter::
 SetKeyDelay -1
-UnreadyWeapon()
+UnReadyWeapon()
 UnShowStatus()
 DoRun()
 return
