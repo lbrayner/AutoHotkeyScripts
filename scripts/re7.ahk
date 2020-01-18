@@ -103,12 +103,12 @@ return
 ~*NumpadEnter::
 SetKeyDelay -1
 UnreadyWeapon()
-Send {LShift DownTemp}
+Send {LCtrl DownTemp}
 return
 
 ~*NumpadEnter up::
 SetKeyDelay -1
-Send {LShift up}
+Send {LCtrl up}
 return
 
 ~*Numpad7::
