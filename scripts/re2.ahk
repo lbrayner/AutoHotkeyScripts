@@ -5,7 +5,8 @@
 ;; interception code START
 
 AHI := new AutoHotInterception()
-mouseID := AHI.GetMouseId(0x093A, 0x2521) ; ELECOM USB Mouse
+; mouseID := AHI.GetMouseId(0x093A, 0x2521) ; ELECOM USB Mouse
+mouseID := AHI.GetMouseId(0x1B1C, 0x1B75) ; Corsair
 
 AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
 
