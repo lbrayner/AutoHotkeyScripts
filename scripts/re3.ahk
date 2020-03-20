@@ -52,43 +52,39 @@ UnreadyWeapon()
 	Send {Click up right}
 }
 
-; global ReadyKnife := 0
-
-; {
-; 	global ReadyKnife
-
-; 	ReadyKnife := 0
-; 	Send {e up}
-; }
+DoReadyWeapon()
+{
+    global ReadyWeapon
+    if(!ReadyWeapon)
+    {
+        ReadyWeapon := 1
+        Send {Click DownTemp right}
+    }
+}
 
 ~*NumpadDiv::
 SetKeyDelay -1
-global ReadyWeapon
-if(!ReadyWeapon)
-{
-	ReadyWeapon := 1
-	Send {Click DownTemp right}
-}
+DoReadyWeapon()
 return
-
-; ~*Numpad0::
-; SetKeyDelay -1
-; UnreadyWeapon()
-; global ReadyKnife
-; if(!ReadyKnife)
-; {
-; 	ReadyKnife := 1
-; 	Send {e DownTemp}
-; }
-; return
 
 ~*Numpad7::
-SetKeyDelay -1
 UnreadyWeapon()
+down:=A_TickCount
+Keywait Numpad7
+duration:=(A_TickCount-down)
+if(duration<250)
+{
+    return
+}
+Send {3 DownTemp}
+Send {3 up}
+Sleep 50
+DoReadyWeapon()
 return
 
-~*Numpad7 up::
+~*Numpad0::
 SetKeyDelay -1
+UnreadyWeapon()
 return
 
 ~*RButton::
