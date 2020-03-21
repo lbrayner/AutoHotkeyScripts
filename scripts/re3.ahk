@@ -67,18 +67,15 @@ SetKeyDelay -1
 DoReadyWeapon()
 return
 
-~*Numpad7::
+~*Right::
 UnreadyWeapon()
 down:=A_TickCount
-Keywait Numpad7
+Keywait Right
 duration:=(A_TickCount-down)
-if(duration<250)
+if(duration<200)
 {
     return
 }
-Send {3 DownTemp}
-Send {3 up}
-Sleep 50
 DoReadyWeapon()
 return
 
@@ -86,6 +83,30 @@ return
 SetKeyDelay -1
 UnreadyWeapon()
 return
+
+; Numpad0::
+; UnreadyWeapon()
+; if GetKeyState("Numpad5")
+; {
+;     Send {a DownTemp}{Space DownTemp}
+;     Send {a up}{Space up}
+;     return
+; }
+; if GetKeyState("Numpad8")
+; {
+;     Send {d DownTemp}{Space DownTemp}
+;     Send {d up}{Space up}
+;     return
+; }
+; if GetKeyState("Numpad4") || GetKeyState("Numpad6")
+; {
+;     Send {w DownTemp}{Space DownTemp}
+;     Send {w up}{Space up}
+;     return
+; }
+; Send {Space DownTemp}
+; Send {Space up}
+; return
 
 ~*RButton::
 UnreadyWeapon()
