@@ -13,7 +13,7 @@ AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
 MouseWheelEvent(state)
 {
     SetKeyDelay -1
-    if !WinActive("ahk_exe re3demo.exe")
+    if !WinActive("ahk_exe re3.exe")
     {
         if(state == 1)
         {
@@ -40,7 +40,7 @@ MouseWheelEvent(state)
 
 ;; interception code END
 
-#IfWinActive, ahk_exe re3demo.exe
+#IfWinActive, ahk_exe re3.exe
 
 global ReadyWeapon := 0
 
