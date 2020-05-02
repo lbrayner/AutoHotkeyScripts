@@ -27,62 +27,64 @@ StopTurning()
 
 Loop,
 {
+    if WinActive("ahk_exe bhd.exe")
+    {
+        global SleepVar
+        global On
 
-	global SleepVar
-	global On
+        if(On)
+        {
+            CenterMouse()
+        }
 
-	if(On)
-	{
-		CenterMouse()
-	}
+        MouseGetPos, PosX1, PosY1
 
-	MouseGetPos, PosX1, PosY1
+        Sleep SleepVar
 
-	Sleep SleepVar
+        if(On)
+        {
+            MouseGetPos, PosX2, PosY2
 
-	if(On)
-	{
-		MouseGetPos, PosX2, PosY2
+            Pos := PosX2 - PosX1
 
-		Pos := PosX2 - PosX1
+            if(Pos < 0)
+            {
 
-		if(Pos < 0)
-		{
+                if((Pos*(-1)) < Displacement && (Pos*(-1)) > Minimum)
+                {
+                    turningRight := 0
+                    turningLeft := 1
+                    still := 0
 
-			if((Pos*(-1)) < Displacement && (Pos*(-1)) > Minimum)
-			{
-				turningRight := 0
-				turningLeft := 1
-				still := 0
+                    SendInput {Blind}{d up}
+                    SendInput {Blind}{a DownTemp}
+                }
+            }
+            else
+            {
+                if(Pos > 0)
+                {
+                    if(Pos < Displacement && Pos > Minimum)
+                    {
+                        turningRight := 1
+                        turningLeft := 0
+                        still := 0
 
-				SendInput {Blind}{d up}
-				SendInput {Blind}{a DownTemp}
-			}
-		}
-		else
-		{
-			if(Pos > 0)
-			{
-				if(Pos < Displacement && Pos > Minimum)
-				{
-					turningRight := 1
-					turningLeft := 0
-					still := 0
-
-					SendInput {Blind}{a up}
-					SendInput {Blind}{d DownTemp}
-				}
-			}
-			else
-			{
-				if(!still)
-				{
-					still := 1
-					StopTurning()
-				}
-			}
-		}
-	}
+                        SendInput {Blind}{a up}
+                        SendInput {Blind}{d DownTemp}
+                    }
+                }
+                else
+                {
+                    if(!still)
+                    {
+                        still := 1
+                        StopTurning()
+                    }
+                }
+            }
+        }
+    }
 }
 return
 
@@ -134,7 +136,7 @@ global Walking
 Walking := true
 return
 
-LShift::
+~*LShift::
 StopWalking()
 return
 
