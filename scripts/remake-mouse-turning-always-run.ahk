@@ -1,11 +1,14 @@
 #UseHook
 #MaxHotkeysPerInterval 200
 
+#IfWinActive, ahk_exe bhd.exe
+
 CoordMode, Mouse, Screen
 
 global SleepVar := 50
 
-global MouseMove := 0
+global On := true
+global Walking := false
 
 global Displacement := 1000
 global Minimum := 0
@@ -26,9 +29,9 @@ Loop,
 {
 
 	global SleepVar
-	global MouseMove
+	global On
 
-	if(MouseMove)
+	if(On)
 	{
 		CenterMouse()
 	}
@@ -37,7 +40,7 @@ Loop,
 
 	Sleep SleepVar
 
-	if(MouseMove)
+	if(On)
 	{
 		MouseGetPos, PosX2, PosY2
 
@@ -92,7 +95,7 @@ return
 
 *LCtrl::
 SetKeyDelay -1
-MouseMove := 0
+On := false
 Send {LCtrl DownTemp}
 return
 
@@ -103,7 +106,10 @@ return
 
 *LAlt::
 SetKeyDelay -1
-MouseMove := 1
+global On
+global Walking
+Walking := false
+On := true
 Send {LAlt DownTemp}
 return
 
@@ -122,16 +128,29 @@ StopWalking()
 		Walking := false
 }
 
-*w::
+*z::
 SetKeyDelay -1
 global Walking
+Walking := true
+return
+
+LShift::
+StopWalking()
+return
+
+~*w::
+SetKeyDelay -1
+global On
+if(!On)
+    return
+global Walking
 if (!Walking)
-	Send {Blind}{Space DownTemp}{w DownTemp}
-else
-	Send {Blind}{w DownTemp}
+	Send {Blind}{LShift DownTemp}
 return
 
-*w up::
-Send {Blind}{Space up}{w up}
+~*w up::
+global On
+if(!On)
+    return
+Send {Blind}{LShift up}
 return
-
