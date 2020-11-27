@@ -3,6 +3,11 @@
 
 #IfWinActive, ahk_exe LittleHope-Win64-Shipping.exe
 
+MouseMoveHorizontally(x)
+{
+    MouseMove, x, 0, 10, Relative
+}
+
 global ReadyWeapon := 0
 
 UnreadyWeapon()
@@ -33,6 +38,9 @@ return
 return
 
 ~*Numpad6::Right
+return
+
+*NumpadEnter::LShift
 return
 
 ~*NumpadDiv::
@@ -95,4 +103,8 @@ return
 *~PgUp up::
 SetKeyDelay -1
 Send {r up}
+return
+
+~*Numpad2::
+MouseMoveHorizontally(500)
 return
