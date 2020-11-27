@@ -1,6 +1,8 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
 
+#SingleInstance force
+
 #IfWinActive, ahk_exe RDR2.exe
 
 Home::
@@ -38,9 +40,11 @@ return
 ~*Numpad9::q
 return
 
+~*Numpad0::Space
+return
+
 ~*PgUp::r
 return
 
 ~*PgDn::f
 return
-
