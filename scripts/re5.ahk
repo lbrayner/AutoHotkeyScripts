@@ -104,9 +104,6 @@ return
 ~*Numpad0::Space
 return
 
-~*Numpad9::q
-return
-
 ~*Numpad7::e
 return
 
@@ -172,20 +169,20 @@ return
 pgdn_var := false
 return
 
-*Delete::
+*Numpad9::
 SetKeyDelay -1
 var := true
 sleep_var := 100
 while(var)
 {
-	Send {Delete DownTemp}
+	Send {q DownTemp}
 	Sleep sleep_var
-	Send {Delete up}
+	Send {q up}
 	Sleep sleep_var
 }
 return
 
-*Delete up::
+*Numpad9 up::
 var := false
 return
 
@@ -241,9 +238,9 @@ speed := 10
 
 ;MouseMove, 0, 0, speed
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Left DownTemp}
+Send {c up}{Left DownTemp}
 Sleep sleep_var
 Send {Left up}{z DownTemp}
 Sleep sleep_var
@@ -251,9 +248,9 @@ Send {z up}{Up DownTemp}
 Sleep sleep_var
 Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {z up}{PgDn DownTemp}
+Send {z up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 
 return
 
@@ -265,31 +262,29 @@ speed := 10
 
 ;MouseMove, 0, 0, speed
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{z DownTemp}
+Send {c up}{z DownTemp}
 Sleep sleep_var
 Send {z up}{Up DownTemp}
 Sleep sleep_var
 Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {z up}{PgDn DownTemp}
+Send {z up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 
 return
 
-*NumpadMult::
+*Delete::
 SetKeyDelay -1
 
 sleep_var := 100
 speed := 1
 
-
-
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Right DownTemp}
+Send {c up}{Right DownTemp}
 Sleep sleep_var
 Send {Right up}{z DownTemp}
 Sleep sleep_var
@@ -297,9 +292,9 @@ Send {z up}{Up DownTemp}
 Sleep sleep_var
 Send {Up up}{z DownTemp}
 Sleep sleep_var
-Send {z up}{PgDn DownTemp}
+Send {z up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 return
 
 ;******************************DISCARD***************************
@@ -316,9 +311,9 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Right DownTemp}
+Send {c up}{Right DownTemp}
 Sleep sleep_var
 Send {Right up}{Return DownTemp}
 Sleep sleep_var
@@ -330,9 +325,9 @@ Send {Return up}{Left DownTemp}
 Sleep sleep_var
 Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Return up}{PgDn DownTemp}
+Send {Return up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 
 return
 
@@ -341,9 +336,9 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Left DownTemp}
+Send {c up}{Left DownTemp}
 Sleep sleep_var
 Send {Left up}{Down DownTemp}
 Sleep sleep_var
@@ -366,9 +361,9 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Down DownTemp}
+Send {c up}{Down DownTemp}
 Sleep sleep_var
 Send {Down up}{Return DownTemp}
 Sleep sleep_var
@@ -380,9 +375,9 @@ Send {Return up}{Left DownTemp}
 Sleep sleep_var
 Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Return up}{PgDn DownTemp}
+Send {Return up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 
 return
 
@@ -391,9 +386,9 @@ SetKeyDelay -1
 
 sleep_var := 100
 
-Send {PgDn DownTemp}
+Send {c DownTemp}
 Sleep sleep_var
-Send {PgDn up}{Right DownTemp}
+Send {c up}{Right DownTemp}
 Sleep sleep_var
 Send {Right up}{Down DownTemp}
 Sleep sleep_var
@@ -407,9 +402,9 @@ Send {Return up}{Left DownTemp}
 Sleep sleep_var
 Send {Left up}{Return DownTemp}
 Sleep sleep_var
-Send {Return up}{PgDn DownTemp}
+Send {Return up}{c DownTemp}
 Sleep sleep_var
-Send {PgDn up}
+Send {c up}
 
 return
 
