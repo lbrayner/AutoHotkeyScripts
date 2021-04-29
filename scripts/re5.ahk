@@ -203,9 +203,9 @@ var := true
 sleep_var := 1
 while(var)
 {
-	Send {a DownTemp}
+	Send {a DownTemp}{f DownTemp}{q DownTemp}
 	Sleep sleep_var
-	Send {d DownTemp}{a up}
+	Send {d DownTemp}{a up}{f up}{q up}
 	Sleep sleep_var
 	Send {d up}
 }
