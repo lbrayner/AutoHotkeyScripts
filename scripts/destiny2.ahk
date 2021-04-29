@@ -40,7 +40,7 @@ return
 SetKeyDelay -1
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {Click DownTemp right}
 }

@@ -60,7 +60,7 @@ ReadyWeapon()
 {
     global WeaponReady
     if(!WeaponReady)
-    {	
+    {
         Run run_interaccel.bat, "", Hide
         WeaponReady := 1
         Send {Click DownTemp right}
@@ -289,9 +289,9 @@ SetKeyDelay -1
 var := true
 sleep_var := 50
 while(var)
-{	
+{
 	Send {a DownTemp}{Space DownTemp}
-	Sleep sleep_var	
+	Sleep sleep_var
 	Send {d DownTemp}{a up}{Space up}
 	Sleep sleep_var
 	Send {d up}

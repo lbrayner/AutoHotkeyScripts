@@ -17,7 +17,7 @@ MouseMoveHorizontally(x)
 UnreadyWeapon()
 {
 	global ReadyWeapon
-		
+
 	ReadyWeapon := 0
 	Send {Click up right}
 }
@@ -29,7 +29,7 @@ UnWalk()
     Walk =: 0
     Send {Blind}{F6 up}
 }
-	
+
 Walk()
 {
     global Walk
@@ -58,7 +58,7 @@ DisableModifier1()
 SetKeyDelay -1
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {Click DownTemp right}
 }
@@ -86,11 +86,11 @@ numpad1_var := true
 sleep_var := 100
 Send {Blind}{F7 DownTemp}
 while(numpad1_var)
-{	
+{
 	Send {Blind}{c DownTemp}
-	Sleep sleep_var	
+	Sleep sleep_var
 	Send {Blind}{c up}
-	Sleep sleep_var	
+	Sleep sleep_var
 }
 return
 
@@ -141,11 +141,11 @@ SetKeyDelay -1
 var := true
 sleep_var := 25
 while(var)
-{	
+{
 	Send {Blind}{a DownTemp}
-	Sleep sleep_var	
+	Sleep sleep_var
 	Send {Blind}{a up}{d DownTemp}
-	Sleep sleep_var	
+	Sleep sleep_var
 	Send {Blind}{d up}
 }
 return

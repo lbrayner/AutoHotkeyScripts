@@ -14,7 +14,7 @@ MouseMoveHorizontally(x)
 UnreadyWeapon()
 {
 	global ReadyWeapon
-		
+
 	ReadyWeapon := 0
 	Send {F5 up}
 }
@@ -23,7 +23,7 @@ UnreadyWeapon()
 SetKeyDelay -1
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {F5 DownTemp}
 }

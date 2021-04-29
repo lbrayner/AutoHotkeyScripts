@@ -81,7 +81,7 @@ return
 SetKeyDelay -1
 global ReadyWeapon
 if(!ReadyWeapon)
-{	
+{
 	ReadyWeapon := 1
 	Send {Click DownTemp right}
 }
@@ -109,7 +109,7 @@ num9_var := true
 num9_sleep_var := 50
 Send {Blind}{q DownTemp}
 while(num9_var)
-{		
+{
     Send {Blind}{Click DownTemp}
 	Sleep num9_sleep_var
 	Send {Blind}{Click up}
@@ -130,7 +130,7 @@ sleep_var := 10
 speed := 1
 displacement_wiggle := 30
 while(var)
-{	
+{
 	MouseMove, (A_ScreenWidth/2 + displacement_wiggle), A_ScreenHeight/2, speed
 	Sleep sleep_var
 	MouseMove, A_ScreenWidth/2, (A_ScreenHeight/2  + displacement_wiggle), speed
@@ -151,7 +151,7 @@ SetKeyDelay -1
 var := true
 sleep_var := 10
 while(var)
-{	
+{
 	Send {Blind}{x DownTemp}{c DownTemp}
 	;Send {Blind}{Click down} {Click down right}
 	Sleep sleep_var
