@@ -58,7 +58,7 @@ return
 MouseMoveHorizontally(800)
 return
 
-~*XButton1::m
+~*XButton1::Esc
 return
 
 ~*XButton2::j
