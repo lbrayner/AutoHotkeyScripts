@@ -12,7 +12,7 @@ AHI.SubscribeMouseButton(mouseID, 5, true, Func("MouseWheelEvent"))
 MouseWheelEvent(state)
 {
     SetKeyDelay -1
-    if !WinActive("ahk_exe re7.exe")
+    if !WinActive("ahk_exe re8.exe")
     {
         if(state == 1)
         {
@@ -22,19 +22,19 @@ MouseWheelEvent(state)
         Send {WheelDown 1}
         return
     }
-    if WinActive("ahk_exe re7.exe")
+    if WinActive("ahk_exe re8.exe")
     {
         mouse_wheel_var := 100
         if(state == 1) ; UP
         {
-            Send {2 DownTemp}{F1 DownTemp}
+            Send {2 DownTemp}{NumpadAdd DownTemp}
             Sleep mouse_wheel_var
-            Send {2 up}{F1 up}
+            Send {2 up}{NumpadAdd up}
             return
         }
-        Send {3 DownTemp}{F2 DownTemp}
+        Send {4 DownTemp}{NumpadSub DownTemp}
         Sleep mouse_wheel_var
-        Send {3 up}{F2 up}
+        Send {4 up}{NumpadSub up}
     }
 
     return
@@ -42,7 +42,7 @@ MouseWheelEvent(state)
 
 ;; interception code END
 
-#IfWinActive, ahk_exe  re8demo.exe
+#IfWinActive, ahk_exe  re8.exe
 
 global Attack_var := false
 
@@ -95,11 +95,6 @@ SetKeyDelay -1
 UnreadyWeapon()
 return
 
-~*Space::
-SetKeyDelay -1
-UnreadyWeapon()
-return
-
 ~*NumpadEnter::
 SetKeyDelay -1
 UnreadyWeapon()
@@ -112,11 +107,6 @@ Send {LCtrl up}
 return
 
 ~*Numpad7::
-SetKeyDelay -1
-UnreadyWeapon()
-return
-
-~*XButton1::
 SetKeyDelay -1
 UnreadyWeapon()
 return
@@ -147,4 +137,7 @@ CeaseAttacking()
 return
 
 PgDn::f
+return
+
+PgUp::r
 return
