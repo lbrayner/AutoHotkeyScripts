@@ -3,18 +3,47 @@
 
 #SingleInstance force
 
-#IfWinActive, ahk_exe Maid of Sker.exe
+#IfWinActive, ahk_exe NewColossus_x64vk.exe
 
 MouseMoveHorizontally(x)
 {
 	DllCall("mouse_event", uint, 1, int, x, int, 0, uint, 0, int, 0)
 }
 
-Home::
+UnreadyWeapon()
+{
+	global ReadyWeapon
+
+    if(!ReadyWeapon)
+        return
+
+	ReadyWeapon := 0
+	Send {Click Right up}
+}
+
+~*NumpadDiv::
+SetKeyDelay -1
+global ReadyWeapon
+if(!ReadyWeapon)
+{
+	ReadyWeapon := 1
+	Send {Click Right DownTemp}
+}
+return
+
+~*RButton up::
+SetKeyDelay -1
+UnreadyWeapon()
+return
+
+~*Home::
+SetKeyDelay -1
+UnreadyWeapon()
 Send {Esc DownTemp}
 return
 
-Home up::
+~*Home up::
+SetKeyDelay -1
 Send {Esc up}
 return
 
@@ -30,7 +59,15 @@ return
 ~*Numpad6::d
 return
 
-*NumpadEnter::LShift
+~*NumpadEnter::
+SetKeyDelay -1
+UnreadyWeapon()
+Send {LCtrl DownTemp}
+return
+
+~*NumpadEnter up::
+SetKeyDelay -1
+Send {LCtrl up}
 return
 
 ~*Numpad1::c
@@ -56,10 +93,4 @@ return
 
 ~*Numpad2::
 MouseMoveHorizontally(800)
-return
-
-~*XButton1::Esc
-return
-
-~*XButton2::j
 return
