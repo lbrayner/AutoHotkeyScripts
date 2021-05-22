@@ -92,5 +92,5 @@ return
 return
 
 ~*Numpad2::
-MouseMoveHorizontally(800)
+MouseMoveHorizontally(3400)
 return
