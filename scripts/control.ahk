@@ -47,19 +47,17 @@ SetKeyDelay -1
 Send {Esc up}
 return
 
-~*Insert::j
+~*PgDn::f
 return
 
-~*Numpad8::w
+~*Numpad7::e
 return
 
-~*Numpad4::a
+~*Numpad9::q
 return
 
-~*Numpad5::s
-return
-
-~*Numpad6::d
+~*Numpad2::
+MouseMoveHorizontally(2200)
 return
 
 ~*NumpadEnter::
@@ -73,43 +71,13 @@ SetKeyDelay -1
 Send {LCtrl up}
 return
 
-~*Numpad1::c
-return
-
-~*Numpad3::z
-return
-
-~*Numpad7::e
-return
-
-~*Numpad9::q
-return
-
-~*Numpad0::Space
-return
-
-~*PgUp::r
-return
-
-~*PgDn::f
-return
-
-~*Numpad2::
-MouseMoveHorizontally(3400)
-return
-
-~*WheelUp::
+~*Numpad1::
 SetKeyDelay -1
-wheelup_sleep := 100
-Send {2 DownTemp}
-Sleep wheelup_sleep
-Send {2 up}
+UnreadyWeapon()
+Send {c DownTemp}
 return
 
-~*WheelDown::
+~*Numpad1 up::
 SetKeyDelay -1
-wheeldown_sleep := 100
-Send {5 DownTemp}
-Sleep wheeldown_sleep
-Send {5 up}
+Send {c up}
 return
