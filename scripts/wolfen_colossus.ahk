@@ -47,6 +47,9 @@ SetKeyDelay -1
 Send {Esc up}
 return
 
+~*Insert::j
+return
+
 ~*Numpad8::w
 return
 
@@ -93,4 +96,20 @@ return
 
 ~*Numpad2::
 MouseMoveHorizontally(3400)
+return
+
+~*WheelUp::
+SetKeyDelay -1
+wheelup_sleep := 100
+Send {2 DownTemp}
+Sleep wheelup_sleep
+Send {2 up}
+return
+
+~*WheelDown::
+SetKeyDelay -1
+wheeldown_sleep := 100
+Send {5 DownTemp}
+Sleep wheeldown_sleep
+Send {5 up}
 return
