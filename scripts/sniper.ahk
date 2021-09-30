@@ -1,6 +1,5 @@
 #UseHook
 #MaxHotkeysPerInterval 200  ;example from Help file
-
 #SingleInstance force
 
 #IfWinActive, ahk_exe SniperElite3.exe
@@ -38,7 +37,25 @@ return
 Send {Esc up}
 return
 
-~*Numpad0::Space
+~*WheelUp::
+Send {1 DownTemp}
+Send {1 up}
+return
+
+~*WheelDown::
+Send {2 DownTemp}
+Send {2 up}
+return
+
+~*Numpad0::
+SetKeyDelay -1
+UnreadyWeapon()
+Send {Space DownTemp}
+return
+
+~*Numpad0 up::
+SetKeyDelay -1
+Send {Space up}
 return
 
 ~*Numpad1::c
