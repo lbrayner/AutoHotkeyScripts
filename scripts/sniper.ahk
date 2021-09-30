@@ -12,7 +12,7 @@ UnreadyWeapon()
 	global ReadyWeapon
 
 	ReadyWeapon := 0
-	Send {LCtrl up}
+	Send {b up}
 }
 
 ~*NumpadDiv::
@@ -21,7 +21,7 @@ global ReadyWeapon
 if(!ReadyWeapon)
 {
 	ReadyWeapon := 1
-	Send {LCtrl DownTemp}
+	Send {b DownTemp}
 }
 return
 
@@ -38,40 +38,7 @@ return
 Send {Esc up}
 return
 
-~*Numpad4::
-SetKeyDelay -1
-Send {Blind}{a DownTemp}
-return
-
-~*Numpad4 up::
-SetKeyDelay -1
-Send {Blind}{a up}
-return
-
-~*Numpad5::
-SetKeyDelay -1
-Send {s DownTemp}
-return
-
-~*Numpad5 up::
-SetKeyDelay -1
-Send {s up}
-return
-
-~*Numpad6::d
-return
-
-~*Numpad8::w
-return
-
-~*Numpad0::
-SetKeyDelay -1
-Send {Space DownTemp}
-return
-
-~*Numpad0 up::
-SetKeyDelay -1
-Send {Space up}
+~*Numpad0::Space
 return
 
 ~*Numpad1::c
@@ -85,6 +52,7 @@ return
 
 ~*Numpad7::
 SetKeyDelay -1
+UnreadyWeapon()
 Send {e DownTemp}
 return
 
@@ -111,4 +79,26 @@ return
 ~*PgUp up::
 SetKeyDelay -1
 Send {r up}
+return
+
+~*NumpadEnter::
+UnreadyWeapon()
+Send {LCtrl DownTemp}
+return
+
+~*NumpadEnter up::
+Send {LCtrl up}
+return
+
+; Movement
+; Movement
+; Movement
+
+~*Numpad8::w
+return
+~*Numpad4::a
+return
+~*Numpad5::s
+return
+~*Numpad6::d
 return
